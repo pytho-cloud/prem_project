@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5" style="background: linear-gradient(to right, #101314, #1a1c1e); color: #fff;">
+    <div class="container">
+        <!-- Header -->
+        <div class="row mb-5">
+            <div class="col text-center">
+                <h2 class="fw-bold display-5">Contact Us</h2>
+                <p class="text-muted fs-5">We’d love to hear from you. Fill out the form or reach us directly through
+                    the info below.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Contact Form -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-lg rounded-4 bg-dark text-light">
+                    <div class="card-body p-5">
+                        <h5 class="card-title mb-4 fw-bold">Send us a message</h5>
+
+                        <!-- Display messages -->
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show"
+                            role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        <form method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control rounded-3" id="name" name="name"
+                                    placeholder="Your name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control rounded-3" id="email" name="email"
+                                    placeholder="Your email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control rounded-3" id="subject" name="subject"
+                                    placeholder="Subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control rounded-3" id="message" name="message" rows="5"
+                                    placeholder="Write your message" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gradient w-100 fw-bold">Send Message</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-lg rounded-4 bg-dark text-light h-100">
+                    <div class="card-body p-5">
+                        <h5 class="card-title mb-4 fw-bold">Get in touch</h5>
+                        <p class="mb-3"><i class="bi bi-geo-alt-fill me-2"></i><strong>Address:</strong> 123 Main
+                            Street, City, Country</p>
+                        <p class="mb-3"><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong>
+                            contact@example.com</p>
+                        <p class="mb-3"><i class="bi bi-telephone-fill me-2"></i><strong>Phone:</strong> +1 234 567 890
+                        </p>
+                        <p class="mb-4"><i class="bi bi-clock-fill me-2"></i><strong>Working Hours:</strong> Mon - Fri,
+                            9:00 AM - 6:00 PM</p>
+
+                        <h6 class="fw-bold">Follow Us</h6>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i
+                                    class="bi bi-facebook"></i></a>
+                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i
+                                    class="bi bi-twitter"></i></a>
+                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i
+                                    class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom CSS for gradient button -->
+<style>
+    .btn-gradient {
+        background: linear-gradient(90deg, #ff6a00, #ee0979);
+        color: #fff;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(90deg, #ee0979, #ff6a00);
+        color: #fff;
+    }
+</style>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+{% endblock content %}
