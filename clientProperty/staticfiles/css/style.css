@@ -3,200 +3,230 @@
    Color Palette: Black (#000) | Dark Gray (#1a1a1a) | Gold (#FFD700) | White (#fff)
 ====================================================== */
 
+
 /* ========================
    🌐 Global Typography & Body
 ======================== */
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #000;
-  color: #fff;
-  margin: 0;
-  padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #fff;
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2, h3, h4, h5 {
-  color: #FFD700;
-  font-weight: 600;
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: #FFD700;
+    font-weight: 600;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: none;
-  color: #FFD700;
+    text-decoration: none;
+    color: #FFD700;
 }
+
 
 /* ========================
    🧭 Navbar
 ======================== */
+
 .navbar-custom {
-  background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-  padding: 0.8rem 1rem;
+    background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+    padding: 0.8rem 1rem;
 }
 
 .navbar-custom .navbar-brand,
 .navbar-custom .nav-link {
-  color: #FFD700 !important;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease, transform 0.2s ease;
+    color: #FFD700 !important;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .navbar-custom .navbar-brand:hover,
 .navbar-custom .nav-link:hover {
-  color: #ffffff !important;
-  transform: translateY(-2px);
+    color: #ffffff !important;
+    transform: translateY(-2px);
 }
 
 .navbar-custom .navbar-toggler {
-  border-color: #FFD700;
+    border-color: #FFD700;
 }
 
 .navbar-custom .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255,215,0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255,215,0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
 .navbar-custom .dropdown-menu {
-  background-color: #1a1a1a;
-  border: 1px solid #FFD700;
+    background-color: #1a1a1a;
+    border: 1px solid #FFD700;
 }
 
 .navbar-custom .dropdown-item {
-  color: #FFD700;
-  transition: background-color 0.3s ease;
+    color: #FFD700;
+    transition: background-color 0.3s ease;
 }
 
 .navbar-custom .dropdown-item:hover {
-  background-color: #FFD700;
-  color: #000;
+    background-color: #FFD700;
+    color: #000;
 }
 
 .navbar-custom .form-control {
-  background-color: transparent;
-  border: 1px solid #FFD700;
-  color: #FFD700;
+    background-color: transparent;
+    border: 1px solid #FFD700;
+    color: #FFD700;
 }
 
 .navbar-custom .form-control::placeholder {
-  color: #FFD700;
+    color: #FFD700;
 }
 
 .navbar-custom .btn-outline-success {
-  border-color: #FFD700;
-  color: #FFD700;
+    border-color: #FFD700;
+    color: #FFD700;
 }
 
 .navbar-custom .btn-outline-success:hover {
-  background-color: #FFD700;
-  color: #000;
+    background-color: #FFD700;
+    color: #000;
 }
+
 
 /* ========================
    🖼️ Hero Carousel
 ======================== */
+
 .carousel-item img {
-  height: 500px;
-  object-fit: cover;
+    height: 500px;
+    object-fit: cover;
 }
 
 .carousel-caption {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
 }
 
 .carousel-caption h5 {
-  color: #FFD700;
-  font-weight: 700;
-  font-size: 1.8rem;
+    color: #FFD700;
+    font-weight: 700;
+    font-size: 1.8rem;
 }
 
 .carousel-caption p {
-  color: #f1f1f1;
-  font-size: 1rem;
+    color: #f1f1f1;
+    font-size: 1rem;
 }
+
 
 /* ========================
    🏘️ Property Cards
 ======================== */
+
 .card {
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0px 4px 20px rgba(255, 215, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0px 4px 20px rgba(255, 215, 0, 0.2);
 }
 
 .card-title {
-  color: #FFD700;
-  font-weight: 600;
+    color: #FFD700;
+    font-weight: 600;
 }
 
 .card-text {
-  color: #ccc;
+    color: #ccc;
 }
 
 .card-footer .btn {
-  border-color: #FFD700;
-  color: #FFD700;
-  transition: all 0.3s ease;
+    border-color: #FFD700;
+    color: #FFD700;
+    transition: all 0.3s ease;
 }
 
 .card-footer .btn:hover {
-  background-color: #FFD700;
-  color: #000;
+    background-color: #FFD700;
+    color: #000;
 }
+
 
 /* ========================
    🦶 Footer
 ======================== */
-.footer {
-  background: linear-gradient(90deg, #000000 0%, #1a1a1a 50%, #000000 100%);
-  padding: 2rem 0;
-  text-align: center;
-  color: #FFD700;
+
+
+/* Footer Styling */
+
+.custom-footer {
+    background-color: #005555;
+    color: #f8f9fa;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.footer a {
-  color: #FFD700;
-  margin: 0 10px;
-  transition: color 0.3s ease;
+.custom-footer h5 {
+    color: #ffffff;
 }
 
-.footer a:hover {
-  color: #fff;
+.footer-link {
+    color: #f8f9fa;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
 }
 
-.footer p {
-  color: #ccc;
-  font-size: 0.9rem;
-  margin-top: 1rem;
+.footer-link:hover {
+    color: #ffd700;
+    transform: translateX(5px);
 }
+
+.custom-footer iframe {
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.custom-footer .btn-outline-light:hover {
+    background-color: #ffffff;
+    color: #005555;
+    transition: 0.3s;
+}
+
 
 /* ========================
    🧭 Utility Classes
 ======================== */
+
 .btn-gold {
-  background-color: #FFD700;
-  color: #000;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+    background-color: #FFD700;
+    color: #000;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
 }
 
 .btn-gold:hover {
-  background-color: #e6c200;
-  color: #000;
+    background-color: #e6c200;
+    color: #000;
 }
 
 .section-title {
-  text-align: center;
-  color: #FFD700;
-  font-weight: 700;
-  font-size: 2rem;
-  margin-bottom: 2rem;
+    text-align: center;
+    color: #52c346;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 2rem;
 }
