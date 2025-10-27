@@ -1,10 +1,209 @@
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Silence is eloquence</title>
-</head>
-<body>
-	
-</body>
-</html>
+<div class="row g-4">
+    
+    <div class="col-md-4">
+      <div class="property-card position-relative overflow-hidden">
+        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm w-100" />
+        <div class="overlay d-flex flex-column justify-content-center align-items-center">
+          <h5 class="text-white mb-2">Lunaris </h5>
+          <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
+            Download Brochure
+          </a>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="col-md-4">
+      <div class="property-card position-relative overflow-hidden">
+        <img src="{% static 'images/img_3.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm w-100" />
+        <div class="overlay d-flex flex-column justify-content-center align-items-center">
+          <h5 class="text-white mb-2">Property Name 2</h5>
+          <a href="{% static 'brochures/brochure2.pdf' %}" class="btn btn-primary btn-sm" download>
+            Download Brochure
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-4">
+      <div class="property-card position-relative overflow-hidden">
+        <img src="{% static 'images/img_2.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm w-100" />
+        <div class="overlay d-flex flex-column justify-content-center align-items-center">
+          <h5 class="text-white mb-2">Property Name 3</h5>
+          <a href="{% static 'brochures/brochure3.pdf' %}" class="btn btn-primary btn-sm" download>
+            Download Brochure
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+Gallery Section  
+
+-->
+
+
+<div class="section pt-0">
+  <div class="container">
+    <div class="row justify-content-between mb-5">
+      <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
+        <div class="img-about dots">
+          <img src="{% static 'images/hero_bg_3.jpg' %}" alt="About Image 1" class="img-fluid rounded shadow" />
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="d-flex feature-h mb-4">
+          <span class="wrap-icon me-3"><span class="icon-home2"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Quality Properties</h3>
+            <p class="text-black-50">We ensure all our properties are verified and high quality.</p>
+          </div>
+        </div>
+
+        <div class="d-flex feature-h mb-4">
+          <span class="wrap-icon me-3"><span class="icon-person"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Top Rated Agents</h3>
+            <p class="text-black-50">Our experienced agents help you find your dream home easily.</p>
+          </div>
+        </div>
+
+        <div class="d-flex feature-h">
+          <span class="wrap-icon me-3"><span class="icon-security"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Easy and Safe</h3>
+            <p class="text-black-50">Every transaction is secure and transparent for peace of mind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Image and Features Section 2 -->
+<div class="section pt-0">
+  <div class="container">
+    <div class="row justify-content-between mb-5">
+      <div class="col-lg-7 mb-5 mb-lg-0">
+        <div class="img-about dots">
+          <img src="{% static 'images/hero_bg_2.jpg' %}" alt="About Image 2" class="img-fluid rounded shadow" />
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="d-flex feature-h mb-4">
+          <span class="wrap-icon me-3"><span class="icon-home2"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Modern Homes</h3>
+            <p class="text-black-50">Choose from the latest, well-designed residential spaces.</p>
+          </div>
+        </div>
+
+        <div class="d-flex feature-h mb-4">
+          <span class="wrap-icon me-3"><span class="icon-person"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Dedicated Support</h3>
+            <p class="text-black-50">Our customer service team is here to assist you 24/7.</p>
+          </div>
+        </div>
+
+        <div class="d-flex feature-h">
+          <span class="wrap-icon me-3"><span class="icon-security"></span></span>
+          <div class="feature-text">
+            <h3 class="heading">Trusted Network</h3>
+            <p class="text-black-50">Work with reliable and verified property owners only.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery & Counter Section -->
+<div class="section">
+  <h1 class = 'text-center p-2'>
+    Our Gallery
+  </h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm" />
+      </div>
+      <div class="col-md-4 mt-lg-5" data-aos="fade-up" data-aos-delay="100">
+        <img src="{% static 'images/img_3.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm" />
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <img src="{% static 'images/img_2.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm" />
+      </div>
+       <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm" />
+      </div>
+      <div class="col-md-4 mt-lg-5" data-aos="fade-up" data-aos-delay="100">
+        <img src="{% static 'images/img_3.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm" />
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <img src="{% static 'images/img_2.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm" />
+      </div>
+    </div>
+
+    <div class="row section-counter mt-5 text-center">
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="counter-wrap mb-5 mb-lg-0">
+          <span class="number"><span class="countup text-primary">2917</span></span>
+          <span class="caption text-black-50"># of Buy Properties</span>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="counter-wrap mb-5 mb-lg-0">
+          <span class="number"><span class="countup text-primary">3918</span></span>
+          <span class="caption text-black-50"># of Sell Properties</span>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
+        <div class="counter-wrap mb-5 mb-lg-0">
+          <span class="number"><span class="countup text-primary">38928</span></span>
+          <span class="caption text-black-50"># of All Properties</span>
+        </div>
+      </div>
+
+      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
+        <div class="counter-wrap mb-5 mb-lg-0">
+          <span class="number"><span class="countup text-primary">1291</span></span>
+          <span class="caption text-black-50"># of Agents</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

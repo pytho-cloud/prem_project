@@ -5,7 +5,7 @@ from .models import Property, Lead, Project, ContactMessage
 # Property Admin
 @admin.register(Property)
 class PropertyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('name', 'location', 'price', 'bhk_type')
+    list_display = ('project_name','name', 'location', 'price', 'bhk_type')
     search_fields = ('name', 'location')
     list_filter = ('bhk_type', 'location', 'price')  
 

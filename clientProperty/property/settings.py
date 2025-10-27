@@ -31,15 +31,46 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+        "unfold", 
     'django.contrib.admin',
+      'import_export',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'import_export',
+   
     'home',
 ]
+
+# JAZZMIN_SETTINGS = {
+#     "site_title": "NESTO Admin",
+#     "site_header": "NESTO Dashboard",
+#     "welcome_sign": "NESTO ADMIN",
+#     "show_ui_builder": True,  # enables real-time theme customizer
+#     "theme": "cosmo",  # Bootstrap theme name, e.g. cosmo, cyborg, flatly, darkly, etc.
+#       "theme": "darkly",              # Dark version of Bootstrap
+#     "dark_mode_theme": "darkly",  
+# }
+UNFOLD = {
+    "SITE_TITLE": "My Admin",
+    "SITE_HEADER": "Dashboard",
+    "SITE_SYMBOL": "dashboard",
+
+    "THEME": {
+        "mode": "system",          # Auto match OS theme
+        "enable_switch": True,     # Show theme toggle switch
+    }
+}
+
+
+UNFOLD = {
+    "THEME": {
+        "css": ["unfold/import_export_fix.css"],
+    }
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

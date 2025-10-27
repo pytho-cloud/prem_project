@@ -1,14 +1,121 @@
 {% load static %}
 
+<style>
+  /* ===== Animations ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes zoomIn {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate {
+    opacity: 0;
+  }
+
+  .animated {
+    opacity: 1;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+
+  .fade-up { animation-name: fadeInUp; }
+  .fade-left { animation-name: fadeInLeft; }
+  .fade-right { animation-name: fadeInRight; }
+  .zoom-in { animation-name: zoomIn; }
+
+  /* Smooth gallery hover effect */
+  .gallery-img {
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .gallery-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Testimonial slider */
+  .testimonial-slider {
+    display: flex;
+    gap: 2rem;
+    overflow: hidden;
+    transition: transform 0.8s ease;
+  }
+
+  .testimonial-slider .item {
+    min-width: 100%;
+    text-align: center;
+  }
+
+  .testimonial-slider img {
+    transition: transform 0.4s ease;
+  }
+
+  .testimonial-slider img:hover {
+    transform: scale(1.1);
+  }
+
+  #testimonial-nav {
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #testimonial-nav span {
+    margin: 0 10px;
+    color: #007bff;
+  }
+
+  #testimonial-nav span:hover {
+    text-decoration: underline;
+  }
+</style>
+
 <!-- About Section -->
-<div class="section" id ="about">
+<div class="section" id="about">
   <div class="container">
-    <div class="row text-left mb-5">
+    <div class="row text-left mb-5 animate fade-up">
       <div class="col-12">
         <h2 class="font-weight-bold heading text-primary mb-4">About Us</h2>
       </div>
 
-      <div class="col-lg-6">
+      <div class="col-lg-6 animate fade-right">
         <p class="text-black-50">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam
           enim pariatur similique debitis vel nisi qui reprehenderit totam?
@@ -22,13 +129,11 @@
         </p>
         <p class="text-black-50">
           Enim, nisi labore exercitationem facere cupiditate nobis quod
-          autem veritatis quis minima expedita. Cumque odio illo iusto
-          reiciendis, labore impedit omnis, nihil aut atque, facilis
-          necessitatibus asperiores porro qui nam.
+          autem veritatis quis minima expedita.
         </p>
       </div>
 
-      <div class="col-lg-6">
+      <div class="col-lg-6 animate fade-left">
         <p class="text-black-50">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
           saepe, explicabo nihil. Est, autem error cumque ipsum repellendus
@@ -37,9 +142,7 @@
         </p>
         <p class="text-black-50">
           Enim, nisi labore exercitationem facere cupiditate nobis quod
-          autem veritatis quis minima expedita. Cumque odio illo iusto
-          reiciendis, labore impedit omnis, nihil aut atque, facilis
-          necessitatibus asperiores porro qui nam.
+          autem veritatis quis minima expedita.
         </p>
       </div>
     </div>
@@ -49,14 +152,12 @@
 <!-- Image and Features Section 1 -->
 <div class="section pt-0">
   <div class="container">
-    <div class="row justify-content-between mb-5">
-      <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
-        <div class="img-about dots">
-          <img src="{% static 'images/hero_bg_3.jpg' %}" alt="About Image 1" class="img-fluid rounded shadow" />
-        </div>
+    <div class="row justify-content-between mb-5 align-items-center">
+      <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2 animate zoom-in">
+        <img src="{% static 'images/hero_bg_3.jpg' %}" alt="About Image 1" class="img-fluid rounded shadow" />
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-4 animate fade-left">
         <div class="d-flex feature-h mb-4">
           <span class="wrap-icon me-3"><span class="icon-home2"></span></span>
           <div class="feature-text">
@@ -64,7 +165,6 @@
             <p class="text-black-50">We ensure all our properties are verified and high quality.</p>
           </div>
         </div>
-
         <div class="d-flex feature-h mb-4">
           <span class="wrap-icon me-3"><span class="icon-person"></span></span>
           <div class="feature-text">
@@ -72,7 +172,6 @@
             <p class="text-black-50">Our experienced agents help you find your dream home easily.</p>
           </div>
         </div>
-
         <div class="d-flex feature-h">
           <span class="wrap-icon me-3"><span class="icon-security"></span></span>
           <div class="feature-text">
@@ -85,157 +184,60 @@
   </div>
 </div>
 
-<!-- Image and Features Section 2 -->
-<div class="section pt-0">
-  <div class="container">
-    <div class="row justify-content-between mb-5">
-      <div class="col-lg-7 mb-5 mb-lg-0">
-        <div class="img-about dots">
-          <img src="{% static 'images/hero_bg_2.jpg' %}" alt="About Image 2" class="img-fluid rounded shadow" />
-        </div>
-      </div>
-
-      <div class="col-lg-4">
-        <div class="d-flex feature-h mb-4">
-          <span class="wrap-icon me-3"><span class="icon-home2"></span></span>
-          <div class="feature-text">
-            <h3 class="heading">Modern Homes</h3>
-            <p class="text-black-50">Choose from the latest, well-designed residential spaces.</p>
-          </div>
-        </div>
-
-        <div class="d-flex feature-h mb-4">
-          <span class="wrap-icon me-3"><span class="icon-person"></span></span>
-          <div class="feature-text">
-            <h3 class="heading">Dedicated Support</h3>
-            <p class="text-black-50">Our customer service team is here to assist you 24/7.</p>
-          </div>
-        </div>
-
-        <div class="d-flex feature-h">
-          <span class="wrap-icon me-3"><span class="icon-security"></span></span>
-          <div class="feature-text">
-            <h3 class="heading">Trusted Network</h3>
-            <p class="text-black-50">Work with reliable and verified property owners only.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Gallery & Counter Section -->
+<!-- Gallery Section -->
 <div class="section">
-  <h1 class = 'text-center p-2'>
-    Our Gallery
-  </h1>
+  <h1 class="text-center p-2 animate fade-up">Our Gallery</h1>
   <div class="container">
-    <div class="row">
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm" />
-      </div>
-      <div class="col-md-4 mt-lg-5" data-aos="fade-up" data-aos-delay="100">
-        <img src="{% static 'images/img_3.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm" />
-      </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <img src="{% static 'images/img_2.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm" />
-      </div>
-       <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
-        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm" />
-      </div>
-      <div class="col-md-4 mt-lg-5" data-aos="fade-up" data-aos-delay="100">
-        <img src="{% static 'images/img_3.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm" />
-      </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <img src="{% static 'images/img_2.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm" />
-      </div>
-    </div>
-
-    <div class="row section-counter mt-5 text-center">
-      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-        <div class="counter-wrap mb-5 mb-lg-0">
-          <span class="number"><span class="countup text-primary">2917</span></span>
-          <span class="caption text-black-50"># of Buy Properties</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
-        <div class="counter-wrap mb-5 mb-lg-0">
-          <span class="number"><span class="countup text-primary">3918</span></span>
-          <span class="caption text-black-50"># of Sell Properties</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="500">
-        <div class="counter-wrap mb-5 mb-lg-0">
-          <span class="number"><span class="countup text-primary">38928</span></span>
-          <span class="caption text-black-50"># of All Properties</span>
-        </div>
-      </div>
-
-      <div class="col-6 col-sm-6 col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="600">
-        <div class="counter-wrap mb-5 mb-lg-0">
-          <span class="number"><span class="countup text-primary">1291</span></span>
-          <span class="caption text-black-50"># of Agents</span>
-        </div>
-      </div>
+    <div class="row g-4">
+      <div class="col-md-4 animate zoom-in"><img src="{% static 'images/img_1.jpg' %}" class="img-fluid rounded shadow-sm gallery-img" /></div>
+      <div class="col-md-4 animate zoom-in"><img src="{% static 'images/img_3.jpg' %}" class="img-fluid rounded shadow-sm gallery-img" /></div>
+      <div class="col-md-4 animate zoom-in"><img src="{% static 'images/img_2.jpg' %}" class="img-fluid rounded shadow-sm gallery-img" /></div>
     </div>
   </div>
 </div>
 
-<!-- Team Section -->
-<div class="section sec-testimonials bg-light">
-  <div class="container">
-    <div class="row mb-5 align-items-center">
-      <div class="col-md-6">
-        <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">Our Associate Developers</h2>
-      </div>
-      <div class="col-md-6 text-md-end">
-        <div id="testimonial-nav">
-          <span class="prev" data-controls="prev">Prev</span>
-          <span class="next" data-controls="next">Next</span>
-        </div>
-      </div>
-    </div>
+<!-- Testimonial Section -->
 
-    <div class="testimonial-slider-wrap">
-      <div class="testimonial-slider">
-        <div class="item">
-          <div class="testimonial text-center">
-            <img src="{% static 'images/person_1-min.jpg' %}" alt="James Smith" class="img-fluid rounded-circle w-25 mb-4" />
-            <!-- <h3 class="h5 text-primary">James Smith</h3>
-            <p class="text-black-50">Designer, Co-founder</p>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p> -->
-          </div>
-        </div>
 
-        <div class="item">
-          <div class="testimonial text-center">
-            <img src="{% static 'images/person_2-min.jpg' %}" alt="Carol Houston" class="img-fluid rounded-circle w-25 mb-4" />
-            <!-- <h3 class="h5 text-primary">Carol Houston</h3>
-            <p class="text-black-50">Designer, Co-founder</p>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p> -->
-          </div>
-        </div>
 
-        <div class="item">
-          <div class="testimonial text-center">
-            <img src="{% static 'images/person_3-min.jpg' %}" alt="Synthia Cameron" class="img-fluid rounded-circle w-25 mb-4" />
-            <!-- <h3 class="h5 text-primary">Synthia Cameron</h3>
-            <p class="text-black-50">Designer, Co-founder</p>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p> -->
-          </div>
-        </div>
 
-        <div class="item">
-          <div class="testimonial text-center">
-            <img src="{% static 'images/person_4.jpg' %}" alt="Davin Smith" class="img-fluid rounded-circle w-25 mb-4" />
-            <!-- <h3 class="h5 text-primary">Davin Smith</h3>
-            <p class="text-black-50">Designer, Co-founder</p>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia...</p> -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Animation Trigger Script -->
+<script>
+  // Intersection Observer for fade/slide/zoom animations
+  const elements = document.querySelectorAll(".animate");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animated");
+      }
+    });
+  }, { threshold: 0.1 });
+
+  elements.forEach(el => observer.observe(el));
+
+  // Simple Testimonial Slider
+  const slider = document.getElementById("testimonialSlider");
+  const prev = document.querySelector("#testimonial-nav .prev");
+  const next = document.querySelector("#testimonial-nav .next");
+  let index = 0;
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${index * 100}%)`;
+  }
+
+  prev.addEventListener("click", () => {
+    index = (index - 1 + 4) % 4;
+    updateSlider();
+  });
+
+  next.addEventListener("click", () => {
+    index = (index + 1) % 4;
+    updateSlider();
+  });
+
+  // Auto-slide every 5 seconds
+  setInterval(() => {
+    index = (index + 1) % 4;
+    updateSlider();
+  }, 5000);
+</script>

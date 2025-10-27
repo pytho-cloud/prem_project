@@ -1,0 +1,22 @@
+/* Fix Import/Export buttons */
+.import-export a.button,
+.import-export button.button,
+.import_export .button,
+.submit-row .button {
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    background: var(--color-primary) !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Fix the "Choose File" input spacing */
+.import-export input[type="file"] {
+    padding: 6px !important;
+}
+
+/* Improve table spacing */
+.import-export table th,
+.import-export table td {
+    padding: 8px 12px !important;
+}

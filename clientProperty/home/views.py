@@ -7,7 +7,7 @@ import json
 from  .filters import generate_key
 from django.shortcuts import render, redirect
 from django.contrib import messages
-
+from django.core.paginator import Paginator
 # 🏠 Home Page with Filter
 def home(request):
     # query = request.GET.get('query', '')
@@ -40,14 +40,20 @@ def home(request):
 
     properties = Property.objects.all()
 
-    # banner = Property.objects.order_by('-id')[:3]
+    banner = Property.objects.exclude(brochure='').order_by('-id')[:3]
+
+
+
+    
+    
    
 
 
 
     context = {
         'properties': properties,
-        # 'banner': banner
+        'banner': banner,
+
     }
     print("data is coming " , context)
     return render(request, "home.html", context)
@@ -97,13 +103,21 @@ def properties(request):
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
 
+    # --- Filtering ---
     if q:
         properties = properties.filter(
             Q(name__icontains=q) | Q(location__icontains=q)
         )
 
     if bhk:
-        properties = properties.filter(bhk_type=bhk)
+        if bhk == '4':  # 4+ BHK case
+            properties = properties.filter(bhk_type__gte=4)
+        else:
+            print(bhk,"this is my bhk")
+            value = str(bhk) + "BHK"
+            print(value,"this is my data",value)
+            properties = properties.filter(bhk_type=value)
+            print("this is my property" , properties)
 
     if min_price:
         properties = properties.filter(price__gte=min_price)
@@ -111,7 +125,17 @@ def properties(request):
     if max_price:
         properties = properties.filter(price__lte=max_price)
 
-    return render(request, "properties.html", {"properties": properties})
+    # --- Pagination ---
+    paginator = Paginator(properties, 6)  # Show 6 per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "properties": page_obj,
+        "page_obj": page_obj,
+    }
+
+    return render(request, "properties.html", context)
 
 
 # def submit_form(request):

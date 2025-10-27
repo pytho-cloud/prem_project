@@ -3,7 +3,15 @@
 
 {% block content %}
 <div class="container py-5">
-  <h2 class="mb-4">Property Listings</h2>
+
+  <!-- 🔹 Loading Spinner Overlay -->
+  <div id="loading-overlay">
+    <div class="spinner-border text-primary" role="status" style="width: 4rem; height: 4rem;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <h2 class="mb-4 text-center">Property Listings</h2>
 
   <div class="row">
     
@@ -12,7 +20,7 @@
       <div class="card p-3 shadow-sm sticky-top" style="top: 90px;">
         <h5 class="mb-3">Filter Properties</h5>
 
-        <form method="GET">
+        <form method="GET" id="filter-form">
 
           <div class="mb-3">
             <label class="form-label">Search</label>
@@ -40,43 +48,43 @@
             <input type="number" name="max_price" class="form-control" value="{{ request.GET.max_price }}">
           </div>
 
-          <button class="btn btn-primary w-100">Apply Filters</button>
-
+          <button class="btn btn-primary w-100" type="submit">Apply Filters</button>
+          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2">Clear Filters</a>
         </form>
       </div>
     </div>
 
     <!-- Property Listings -->
     <div class="col-md-9">
-      <div class="row">
-        {% for property in properties %}
+      <div class="row fade-in" id="property-list">
+        {% for property in page_obj %}
         <div class="col-md-4 d-flex justify-content-center">
           <div class="property-card mb-4 border rounded bg-white" style="width: 300px;">
+            
             {% if property.image %}
-            <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.name }}">
+              <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.name }}">
             {% else %}
-            <img src="{% static 'images/default_property.jpg' %}" class="card-img-top" alt="No image">
+              <img src="{% static 'images/default_property.jpg' %}" class="card-img-top" alt="No image">
             {% endif %}
 
             <div class="p-3">
               <h5>{{ property.name }}</h5>
-           <p>{{ property.description|truncatechars:150 }}</p>
-
+              <p>{{ property.description|truncatechars:150 }}</p>
               <p><strong>Location:</strong> {{ property.location }}</p>
-              <p><strong>BHK:</strong> {{ property.bhk }}</p>
+              <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
               <p><strong>Price:</strong> {{ property.price }} Lakh</p>
 
               {% if request.session.form_filled %}
                 {% if property.brochure %}
-                <a href="{{ property.brochure.url }}" class="btn btn-success mt-2" download>
-                  Download Brochure
-                </a>
+                  <a href="{{ property.brochure.url }}" class="btn btn-success mt-2" download>
+                    Download Brochure
+                  </a>
                 {% endif %}
               {% else %}
-              <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#contactModal"
-                data-property-id="{{ property.id }}">
-                Request Brochure
-              </button>
+                <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#contactModal"
+                        data-property-id="{{ property.id }}">
+                  Request Brochure
+                </button>
               {% endif %}
             </div>
           </div>
@@ -85,27 +93,95 @@
         <p class="text-muted">No properties found.</p>
         {% endfor %}
       </div>
-    </div>
 
+      <!-- Pagination -->
+      {% if page_obj.has_other_pages %}
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                Previous
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+          {% endif %}
+
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% else %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                  {{ num }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
+                Next
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
   </div>
 </div>
 
-<!-- Script to store property_id -->
+<!-- 🔹 JS Script for Loader and Modal -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const contactModal = document.getElementById('contactModal');
     const propertyIdInput = document.getElementById('propertyIdInput');
+    const form = document.getElementById('filter-form');
+    const overlay = document.getElementById('loading-overlay');
+    const propertyList = document.getElementById('property-list');
 
-    contactModal.addEventListener('show.bs.modal', function (event) {
-      const button = event.relatedTarget;
-      const propertyId = button.getAttribute('data-property-id');
-      propertyIdInput.value = propertyId;
+    // Handle modal property ID
+    if (contactModal && propertyIdInput) {
+      contactModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const propertyId = button.getAttribute('data-property-id');
+        propertyIdInput.value = propertyId;
+      });
+    }
+
+    // Show loader when submitting filters
+    if (form) {
+      form.addEventListener('submit', function () {
+        overlay.style.display = 'flex';
+      });
+    }
+
+    // Show loader on pagination click
+    document.querySelectorAll('.pagination a').forEach(link => {
+      link.addEventListener('click', function () {
+        overlay.style.display = 'flex';
+      });
+    });
+
+    // Hide loader after page fully loads
+    window.addEventListener('load', function () {
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        if (propertyList) propertyList.classList.add('fade-in');
+      }, 400); // 0.4s delay for smooth transition
     });
   });
 </script>
 
-<!-- Styles -->
+<!-- 🔹 Styles -->
 <style>
+  /* Property Card */
   .property-card img.card-img-top {
     width: 100%;
     height: 200px;
@@ -122,11 +198,28 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .filter-section {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #dee2e6;
+  /* Loading Overlay */
+  #loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(255,255,255,0.7);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Fade-in Animation */
+  .fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 </style>
+
 {% endblock content %}

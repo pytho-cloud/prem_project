@@ -15,6 +15,8 @@ class Property(models.Model):
     description = models.TextField(blank=True)
     bhk_type = models.CharField(max_length=10, choices=BHK_CHOICES, default='2BHK')
     brochure = models.FileField(upload_to='property_brochures/', blank=True, null=True)
+    partner_logo =  models.ImageField(upload_to="partners_logo/", blank=True, null=True)
+    project_name =models.CharField(max_length=255,null=True,blank=True)
     # most_recent = models.BooleanField(default=False)
     
 
