@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -8,6 +8,11 @@ from  .filters import generate_key
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+from django.http import FileResponse, Http404
+from django.shortcuts import get_object_or_404
+from django.http import FileResponse, HttpResponseBadRequest
+from .utils import *
+
 # 🏠 Home Page with Filter
 def home(request):
     # query = request.GET.get('query', '')
@@ -40,20 +45,14 @@ def home(request):
 
     properties = Property.objects.all()
 
-    banner = Property.objects.exclude(brochure='').order_by('-id')[:3]
-
-
-
-    
-    
+    banner = Property.objects.order_by('-id')[:3]
    
 
 
 
     context = {
         'properties': properties,
-        'banner': banner,
-
+        'banner': banner
     }
     print("data is coming " , context)
     return render(request, "home.html", context)
@@ -97,6 +96,8 @@ from .models import Property
 
 def properties(request):
     properties = Property.objects.all()
+
+    print("this is my sessions" , request.session.get('name'))
 
     q = request.GET.get('q')
     bhk = request.GET.get('bhk')
@@ -163,7 +164,7 @@ def properties(request):
 
 def submit_contact(request):
     if request.method == "POST":
-        name = request.POST.get("name")
+        name = request.POST.get("username")
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         property_id = request.POST.get("property_id")
@@ -173,6 +174,9 @@ def submit_contact(request):
         Lead.objects.create(name=name, email=email, phone=phone, token=token)
 
         # Mark that user has filled the form
+        request.session['name'] = name
+        request.session['email'] = email
+        request.session['phone'] = phone
         request.session['form_filled'] = True
         request.session.modified = True
 
@@ -230,3 +234,59 @@ def contact_view(request):
 def getBanner(request):
 
     banner = Property.objects.order_by('-id')[:3]
+
+
+
+def login(request):
+
+    if request.method == 'POST':
+
+
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        property_id = request.POST.get("property_id")
+        request.session['name'] = username
+        request.session['email'] = email
+        request.session['phone'] = phone
+
+        return redirect('properties')
+
+    return render(request,'form.html')
+
+
+
+
+# optional if CSRF handled via JS token
+def download_brochure(request):
+    property_id = request.GET.get("id")
+    print("this is my",property_id)
+
+    
+
+
+    if not property_id:
+        return HttpResponseBadRequest("Missing id")
+
+    try:
+        
+        prop ,brochure= addLeads(request,property_id)
+
+
+        print("this is my data", prop)
+        
+
+        
+    except Property.DoesNotExist:
+        return HttpResponseBadRequest("Invalid id")
+
+
+    
+    if not brochure:
+        return HttpResponseBadRequest("No brochure found")
+
+    return FileResponse(
+        brochure.open("rb"),
+        as_attachment=True,
+        filename=prop
+    )

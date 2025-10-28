@@ -12,9 +12,37 @@ class PropertyAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 # Lead Admin
 @admin.register(Lead)
 class LeadAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('name', 'phone', 'email', 'created_at')
-    search_fields = ('name', 'phone', 'email')
-    list_filter = ('created_at',)  # Filter by date created
+    list_display = (
+        'name',
+        'phone',
+        'email',
+        'project_name',
+        'property_name',
+        'location',
+        'bhk_type',
+        'price',
+        'created_at',
+    )
+
+    search_fields = (
+        'name',
+        'phone',
+        'email',
+        'project_name',
+        'property_name',
+        'location',
+        'bhk_type',
+    )
+
+    # ✅ Add all useful filters
+    list_filter = (
+        'created_at',
+        'project_name',
+        'location',
+        'bhk_type',
+    )
+
+    ordering = ('-created_at',)
 
 # Project Admin
 @admin.register(Project)

@@ -74,17 +74,18 @@
               <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
               <p><strong>Price:</strong> {{ property.price }} Lakh</p>
 
-              {% if request.session.form_filled %}
+              {% if request.session.name and request.session.email and request.session.phone%}
                 {% if property.brochure %}
-                  <a href="{{ property.brochure.url }}" class="btn btn-success mt-2" download>
-                    Download Brochure
-                  </a>
-                {% endif %}
+                  <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn btn-success mt-2">
+                              Download Brochure
+                            </a>
+              {% endif %}
+
               {% else %}
-                <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#contactModal"
-                        data-property-id="{{ property.id }}">
-                  Request Brochure
-                </button>
+               <button class="btn btn-primary mt-2" id="requestBrochureBtn"
+                      data-property-id="{{ property.id }}">
+                Request Brochure
+              </button>
               {% endif %}
             </div>
           </div>
@@ -221,5 +222,46 @@
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
+
+
+<script>
+  document.getElementById('requestBrochureBtn').addEventListener('click', function() {
+    window.location.href = "{% url 'login' %}";
+  });
+</script>
+
+
+  {% comment %} <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const btn = document.getElementById("downloadBtn");
+
+      btn.addEventListener("click", async () => {
+        const propertyId = btn.dataset.id;
+
+        const response = await fetch(`/download-brochure/?id=${propertyId}`, {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "X-Requested-With": "XMLHttpRequest"
+          }
+        });
+
+        if (response.ok) {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "brochure.pdf";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        } else {
+          alert("Failed to download brochure");
+        }
+      });
+    });
+  </script> {% endcomment %}
+
 
 {% endblock content %}

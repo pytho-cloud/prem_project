@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Django App</title>
+
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+
+  <div class="container" data-aos="zoom-in">
+    <form method="POST" action="{% url 'login' %}" class="login-form">
+      {% csrf_token %}
+      <h2>Submit Property Details 🏢</h2>
+
+
+      <div class="input-group" data-aos="fade-right" data-aos-delay="200">
+        <label for="username">Full Name</label>
+        <input type="text" id="username" name="username" placeholder="Enter your name" required>
+      </div>
+
+      <div class="input-group" data-aos="fade-left" data-aos-delay="400">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+        <div class="input-group" data-aos="fade-left" data-aos-delay="400">
+        <label for="phone">Phone Number</label>
+        <input type="phone" id="phone" name="phone" placeholder="Enter your phone number" required>
+      </div>
+      <button type="submit" data-aos="fade-up" data-aos-delay="600">Submit</button>
+
+      <p class="register-text" data-aos="fade-up" data-aos-delay="800">
+        {% comment %} Don’t have an account? <a href="{% url 'register' %}">Register</a> {% endcomment %}
+      </p>
+    </form>
+  </div>
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Custom JS -->
+  <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

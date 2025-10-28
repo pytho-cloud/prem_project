@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-        "unfold", 
+     "jazzmin", 
+        # "unfold", 
     'django.contrib.admin',
       'import_export',
     'django.contrib.auth',
@@ -43,25 +44,25 @@ INSTALLED_APPS = [
     'home',
 ]
 
-# JAZZMIN_SETTINGS = {
-#     "site_title": "NESTO Admin",
-#     "site_header": "NESTO Dashboard",
-#     "welcome_sign": "NESTO ADMIN",
-#     "show_ui_builder": True,  # enables real-time theme customizer
-#     "theme": "cosmo",  # Bootstrap theme name, e.g. cosmo, cyborg, flatly, darkly, etc.
-#       "theme": "darkly",              # Dark version of Bootstrap
-#     "dark_mode_theme": "darkly",  
-# }
-UNFOLD = {
-    "SITE_TITLE": "My Admin",
-    "SITE_HEADER": "Dashboard",
-    "SITE_SYMBOL": "dashboard",
-
-    "THEME": {
-        "mode": "system",          # Auto match OS theme
-        "enable_switch": True,     # Show theme toggle switch
-    }
+JAZZMIN_SETTINGS = {
+    "site_title": "NESTO Admin",
+    "site_header": "NESTO Dashboard",
+    "welcome_sign": "NESTO ADMIN",
+    "show_ui_builder": True,  # enables real-time theme customizer
+    "theme": "cosmo",  # Bootstrap theme name, e.g. cosmo, cyborg, flatly, darkly, etc.
+      "theme": "darkly",              # Dark version of Bootstrap
+    "dark_mode_theme": "darkly",  
 }
+# UNFOLD = {
+#     "SITE_TITLE": "My Admin",
+#     "SITE_HEADER": "Dashboard",
+#     "SITE_SYMBOL": "dashboard",
+
+#     "THEME": {
+#         "mode": "system",          # Auto match OS theme
+#         "enable_switch": True,     # Show theme toggle switch
+#     }
+# }
 
 
 UNFOLD = {

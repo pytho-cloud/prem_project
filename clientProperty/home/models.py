@@ -32,6 +32,11 @@ class Lead(models.Model):
     created_at = models.DateTimeField(auto_now_add=True,null=True,blank=True)
 
     token  = models.TextField(null=True,blank=True)
+    project_name =models.CharField(max_length=255,null=True,blank=True)
+    property_name = models.CharField(max_length=255,null=True)
+    location = models.CharField(max_length=255,null=True)
+    bhk_type = models.CharField(max_length=255,null=True)
+    price = models.IntegerField(null=True)
 
     def __str__(self):
         return f"{self.name} - {self.phone}"
