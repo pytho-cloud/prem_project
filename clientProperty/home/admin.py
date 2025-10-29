@@ -54,6 +54,6 @@ class ProjectAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 # ContactMessage Admin
 @admin.register(ContactMessage)
 class ContactMessageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'created_at')
-    search_fields = ('name', 'email', 'subject')
+    list_display = ('name', 'email', 'contact','subject', 'created_at')
+    search_fields = ('name', 'email', 'contact','subject')
     list_filter = ('created_at',)  

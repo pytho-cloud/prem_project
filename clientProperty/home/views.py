@@ -197,35 +197,27 @@ def contact_view(request):
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
         email = request.POST.get('email', '').strip()
+        contact = request.POST.get('phone', '').strip()
+
         subject = request.POST.get('subject', '').strip()
         message_text = request.POST.get('message', '').strip()
 
-        # Basic validation
-        # if not name or not email or not subject or not message_text:
-        #     messages.error(request, 'Please fill in all fields.')
-        #     return redirect('contact')
-
-        # Save to database (optional)
+        # Save to DB (optional)
         ContactMessage.objects.create(
             name=name,
             email=email,
+            contact=contact,
             subject=subject,
             message=message_text
-        )
+            
+        ).save()
 
-        # # Send email (optional)
-        # send_mail(
-        #     f"New Contact Message: {subject}",
-        #     f"Name: {name}\nEmail: {email}\n\nMessage:\n{message_text}",
-        #     settings.DEFAULT_FROM_EMAIL,
-        #     [settings.DEFAULT_FROM_EMAIL],
-        #     fail_silently=False,
-        # )
+        # Instead of staying on the same page, redirect to WhatsApp chat
+        # whatsapp_message = f"Hi Nesto, I just sent you a message from the website. My name is {name}."
+        # whatsapp_url = f"https://wa.me/919167208204?text={whatsapp_message.replace(' ', '%20')}"
+        # return redirect(whatsapp_url)
 
-        messages.success(request, 'Your message has been sent successfully!')
-        return redirect('contact')
-
-    return render(request, 'contact.html')
+    return redirect("/")
 
 
 

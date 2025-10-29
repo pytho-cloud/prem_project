@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% load static %}
 <section class="py-5 mt-5">
     <div class="container">
         <!-- Header -->
@@ -29,6 +29,10 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control rounded-3" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                             <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="number" class="form-control rounded-3" id="phone" name="phone" placeholder="Your phone number" required>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email Address</label>
@@ -87,4 +91,4 @@
 </style>
 
 <!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> {% endblock content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> 
