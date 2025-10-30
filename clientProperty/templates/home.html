@@ -5,50 +5,50 @@
 
 {% block content %}
 <style>
-.property-card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-  height: 280px;
-}
+  .property-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 280px;
+  }
 
-.property-card img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
+  .property-card img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
 
-.property-card:hover img {
-  transform: scale(1.15);
-}
+  .property-card:hover img {
+    transform: scale(1.15);
+  }
 
-.property-card .overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  opacity: 0;
-  transition: 0.4s ease;
-}
+  .property-card .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: 0.4s ease;
+  }
 
-.property-card:hover .overlay {
-  opacity: 1;
-}
+  .property-card:hover .overlay {
+    opacity: 1;
+  }
 
-.property-card .overlay h5,
-.property-card .overlay h7,
-.property-card .overlay a {
-  transform: translateY(20px);
-  opacity: 0;
-  transition: 0.4s ease;
-}
+  .property-card .overlay h5,
+  .property-card .overlay h7,
+  .property-card .overlay a {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: 0.4s ease;
+  }
 
-.property-card:hover .overlay h5,
-.property-card:hover .overlay h7,
-.property-card:hover .overlay a {
-  transform: translateY(0);
-  opacity: 1;
-}
+  .property-card:hover .overlay h5,
+  .property-card:hover .overlay h7,
+  .property-card:hover .overlay a {
+    transform: translateY(0);
+    opacity: 1;
+  }
 </style>
 
 <!-- AOS CSS -->
@@ -59,7 +59,7 @@
 
 <script>
   // Initialize AOS
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     AOS.init({
       duration: 1000,   // animation duration in ms
       once: true,       // animation happens only once
@@ -96,85 +96,108 @@
 <!-- Our Properties -->
 <div class="container py-5">
   <h1 class="text-center mb-5" data-aos="fade-up">Our Properties</h1>
+<div class="row g-4">
 
-  <div class="row g-4">
+  {% for item in banner %}
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
+    <div class="property-card position-relative overflow-hidden">
 
-    {% for item in banner %}
-    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-      <div class="property-card position-relative overflow-hidden">
-        {% if item.image %}
-        <img src="{{ item.image.url }}" alt="{{ item.name }}" class="img-fluid w-100" />
-        {% else %}
-        <img src="{% static 'images/default.jpg' %}" alt="No Image" class="img-fluid w-100" />
-        {% endif %}
-        <div class="overlay d-flex flex-column justify-content-center align-items-center">
-          <h5 class="text-white mb-2">{{ item.project_name }}</h5>
-          <h7 class="text-white mb-2">{{ item.name }}</h7>
+      {% if item.image %}
+      <img src="{{ item.image.url }}" alt="{{ item.name }}" class="img-fluid w-100" />
+      {% else %}
+      <img src="{% static 'images/default.jpg' %}" alt="No Image" class="img-fluid w-100" />
+      {% endif %}
+
+      <div class="overlay d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-white mb-2">{{ item.project_name }}</h5>
+        <h6 class="text-white mb-2">{{ item.name }}</h6>
+
+        {% if request.session.name and request.session.email and request.session.phone %}
           {% if item.brochure %}
           <a href="{{ item.brochure.url }}" class="btn btn-primary btn-sm" download>
             Download Brochure
           </a>
           {% endif %}
-        </div>
+        {% else %}
+        <button class="btn btn-primary btn-sm"
+                onclick="requestBrochure('{{ item.id }}')">
+          Request Brochure
+        </button>
+        {% endif %}
       </div>
-    </div>
-    {% endfor %}
 
-    <!-- Static Property Cards -->
-    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-      <div class="property-card position-relative overflow-hidden">
-        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm w-100" />
-        <div class="overlay d-flex flex-column justify-content-center align-items-center">
-          <h5 class="text-white mb-2">Lunaris</h5>
-          <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-            Download Brochure
-          </a>
-        </div>
-      </div>
     </div>
+  </div>
+  {% endfor %}
 
-    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-      <div class="property-card position-relative overflow-hidden">
-        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm w-100" />
-        <div class="overlay d-flex flex-column justify-content-center align-items-center">
-          <h5 class="text-white mb-2">Solara</h5>
-          <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-            Download Brochure
-          </a>
-        </div>
+  <!-- Static Property Cards -->
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+    <div class="property-card position-relative overflow-hidden">
+      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm w-100" />
+      <div class="overlay d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-white mb-2">Lunaris</h5>
+        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
+          Download Brochure
+        </a>
       </div>
     </div>
+  </div>
 
-    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-      <div class="property-card position-relative overflow-hidden">
-        <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm w-100" />
-        <div class="overlay d-flex flex-column justify-content-center align-items-center">
-          <h5 class="text-white mb-2">Aurora</h5>
-          <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-            Download Brochure
-          </a>
-        </div>
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+    <div class="property-card position-relative overflow-hidden">
+      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm w-100" />
+      <div class="overlay d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-white mb-2">Solara</h5>
+        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
+          Download Brochure
+        </a>
       </div>
     </div>
+  </div>
+
+  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+    <div class="property-card position-relative overflow-hidden">
+      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm w-100" />
+      <div class="overlay d-flex flex-column justify-content-center align-items-center">
+        <h5 class="text-white mb-2">Aurora</h5>
+        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
+          Download Brochure
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
 
   </div>
-</div>
 
-<!-- Other sections -->
-<div data-aos="fade-up" data-aos-delay="100">
-  {% include 'home/feature.html' %}
-</div>
+  <script>
+    function requestBrochure(id) {
+  window.location.href = "{% url 'login' %}?next=/property/" + id;
+}
+  </script>
 
-<div data-aos="fade-up" data-aos-delay="200">
-  {% include 'home/homeAbout.html' %}
-</div>
+  <!-- Other sections -->
+  <div data-aos="fade-up" data-aos-delay="100">
+    {% include 'home/feature.html' %}
+  </div>
 
-<div data-aos="fade-up" data-aos-delay="300">
-  {% include 'about.html' %}
-</div>
+  <div data-aos="fade-up" data-aos-delay="200">
+    {% include 'home/homeAbout.html' %}
+  </div>
 
-<div data-aos="fade-up" data-aos-delay="300">
-  {% include 'contact.html' %}
-</div>
+    <div data-aos="fade-up" data-aos-delay="200">
+    {% include 'home/content.html' %}
+  </div>
 
-{% endblock content %}
+  <div data-aos="fade-up" data-aos-delay="300">
+    {% include 'about.html' %}
+  </div>
+
+  <div data-aos="fade-up" data-aos-delay="300">
+    {% include 'contact.html' %}
+  </div>
+
+
+
+  {% endblock content %}

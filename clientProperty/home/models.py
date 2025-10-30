@@ -17,6 +17,8 @@ class Property(models.Model):
     brochure = models.FileField(upload_to='property_brochures/', blank=True, null=True)
     partner_logo =  models.ImageField(upload_to="partners_logo/", blank=True, null=True)
     project_name =models.CharField(max_length=255,null=True,blank=True)
+    floor_plane_image =  models.ImageField(upload_to="floor_plan/", blank=True, null=True)
+    sq_ft = models.CharField(max_length=255,null=True,blank=True)
     # most_recent = models.BooleanField(default=False)
     
 

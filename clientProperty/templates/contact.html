@@ -1,94 +1,157 @@
 {% load static %}
-<section class="py-5 mt-5">
+
+<section class="py-5 mt-5" data-aos="fade-up" id ='contact'>
     <div class="container">
+        
         <!-- Header -->
-        <div class="row mb-5">
-            <div class="col text-center">
-                <h2 class="fw-bold display-5">Contact Us</h2>
-                <p class="text-muted fs-5">We’d love to hear from you. Fill out the form or reach us directly through the info below.</p>
+        <div class="row mb-5 text-center">
+            <div class="col">
+                <h2 class="fw-bold display-6 text-primary">Contact Us</h2>
+                <p class="text-muted lead">
+                    Have questions? Our team is here to help you with anything you need.
+                </p>
             </div>
         </div>
 
-        <div class="row g-4">
-            <!-- Contact Form -->
-            <div class="col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 h-100" style="background-color: #005555;">
-                    <div class="card-body p-5 text-light">
-                        <h5 class="card-title mb-4 fw-bold">Send us a message</h5>
+        <div class="row g-4 align-items-stretch">
 
-                        <!-- Display messages -->
-                        {% if messages %} {% for message in messages %}
-                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+            <!-- Contact Form -->
+            <div class="col-md-6" data-aos="fade-right">
+                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card">
+                    <div class="card-body p-5">
+
+                        <h4 class="fw-bold mb-4 text-white">Send a message</h4>
+
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                             {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         </div>
-                        {% endfor %} {% endif %}
+                        {% endfor %}
+                        {% endif %}
 
                         <form method="post" action="{% url 'contact' %}">
                             {% csrf_token %}
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control rounded-3" id="name" name="name" placeholder="Your name" required>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
+                                <label for="name">Full Name</label>
                             </div>
-                             <div class="mb-3">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="number" class="form-control rounded-3" id="phone" name="phone" placeholder="Your phone number" required>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="phone" placeholder="Phone" name="phone" required>
+                                <label for="phone">Phone Number</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="Your email" required>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
+                                <label for="email">Email Address</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="subject" class="form-label">Subject</label>
-                                <input type="text" class="form-control rounded-3" id="subject" name="subject" placeholder="Subject" required>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" name="subject" required>
+                                <label for="subject">Subject</label>
                             </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">Message</label>
-                                <textarea class="form-control rounded-3" id="message" name="message" rows="5" placeholder="Write your message" required></textarea>
+
+                            <div class="form-floating mb-4">
+                                <textarea class="form-control" placeholder="Your message" name="message" id="message" style="height: 120px" required></textarea>
+                                <label for="message">Message</label>
                             </div>
-                            <button type="submit" class="btn btn-light w-100 fw-bold text-dark">Send Message</button>
+
+                            <button type="submit" class="btn w-100 py-3 btn-gradient text-uppercase fw-bold">
+                                Send Message
+                            </button>
                         </form>
                     </div>
                 </div>
             </div>
 
             <!-- Contact Info -->
-            <div class="col-md-6">
-                <div class="card border-0 shadow-lg rounded-4 text-light h-100" style="background-color: #005555;">
-                    <div class="card-body p-5">
-                        <h5 class="card-title mb-4 fw-bold">Get in touch</h5>
-                        <p class="mb-3"><i class="bi bi-geo-alt-fill me-2"></i><strong>Address:</strong> 123 Main Street, City, Country</p>
-                        <p class="mb-3"><i class="bi bi-envelope-fill me-2"></i><strong>Email:</strong> contact@example.com</p>
-                        <p class="mb-3"><i class="bi bi-telephone-fill me-2"></i><strong>Phone:</strong> +1 234 567 890</p>
-                        <p class="mb-4"><i class="bi bi-clock-fill me-2"></i><strong>Working Hours:</strong> Mon - Fri, 9:00 AM - 6:00 PM</p>
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card">
+                    <div class="card-body p-5 text-white">
+                        <h4 class="fw-bold mb-4">Get in touch</h4>
 
-                        <h6 class="fw-bold">Follow Us</h6>
+                        <p class="mb-3"><i class="bi bi-geo-alt-fill me-2"></i> 123 Main Street, Pune, India</p>
+                        <p class="mb-3"><i class="bi bi-envelope-fill me-2"></i> support@nesto.com</p>
+                        <p class="mb-3"><i class="bi bi-telephone-fill me-2"></i> +91 98765 43210</p>
+                        <p class="mb-4"><i class="bi bi-clock-fill me-2"></i> Mon - Sat: 9:00 AM - 6:00 PM</p>
+
+                        <h6 class="fw-semibold mb-3">Connect With Us</h6>
                         <div class="d-flex gap-3">
-                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="btn btn-outline-light rounded-circle p-2"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
                         </div>
+
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
-<!-- Custom CSS for gradient button -->
+<!-- ✅ Custom Styling -->
 <style>
-    .btn-gradient {
-        background: linear-gradient(90deg, #ff6a00, #ee0979);
+    .contact-card {
+        background: linear-gradient(145deg, #004d4d, #007373);
+        color: #fff;
+        border-radius: 15px;
+    }
+
+    .form-floating .form-control {
+        border-radius: 8px;
+        background-color: #004040;
         color: #fff;
         border: none;
-        transition: 0.3s;
     }
-    
-    .btn-gradient:hover {
-        background: linear-gradient(90deg, #ee0979, #ff6a00);
+
+    .form-floating label {
+        color: #d9f3f3;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        background-color: #003636;
         color: #fff;
+    }
+
+    .btn-gradient {
+        background: linear-gradient(90deg, #00d4ff, #0073ff);
+        border: none;
+        color: #fff;
+        transition: 0.4s ease;
+        border-radius: 8px;
+    }
+
+    .btn-gradient:hover {
+        background: linear-gradient(90deg, #0073ff, #00d4ff);
+        transform: scale(1.03);
+    }
+
+    .social-icon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 42px;
+        height: 42px;
+        font-size: 18px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        color: #fff;
+        text-decoration: none;
+        transition: .3s ease;
+    }
+
+    .social-icon:hover {
+        background: #fff;
+        color: #007373;
+        transform: scale(1.15);
     }
 </style>
 
 <!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

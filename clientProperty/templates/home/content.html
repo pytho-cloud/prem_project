@@ -1,0 +1,64 @@
+{% load static %}
+
+
+<style>
+    .about-section img {
+        border-radius: 12px;
+        transition: .3s ease-in-out;
+    }
+
+    .about-section img:hover {
+        transform: scale(1.03);
+    }
+</style>
+<section class="py-5 about-section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+
+            <!-- Image Section -->
+            <div class="col-lg-6">
+                <img src="{% static 'images/img_7.jpg' %}" alt="About Nesto Real Estate"
+                    class="img-fluid rounded shadow-sm">
+            </div>
+
+            <!-- Text Section -->
+            <div class="col-lg-6">
+                <h2 class="fw-bold text-primary mb-4">About Nesto Real Estate</h2>
+
+                <p class="text-muted">
+                    At <strong>Nesto</strong>, we are redefining how people discover and own properties.
+                    With years of real estate excellence, we connect buyers with homes that inspire comfort, security,
+                    and a better future.
+                </p>
+
+                <p class="text-muted">
+                    We believe everyone deserves a home they truly love. That’s why we showcase only verified listings —
+                    offering a wide range of modern apartments, luxury villas, and budget-friendly options across prime
+                    locations.
+                </p>
+
+                <p class="text-muted">
+                    From guided site visits to paperwork assistance, our professional team stays with you
+                    <strong>every step of the way</strong> — making your home-buying journey simple, joyful, and
+                    stress-free.
+                </p>
+
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Verified & trusted
+                        property listings</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Top-rated and experienced
+                        real estate advisors</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>Customer-first approach
+                        with end-to-end support</li>
+                </ul>
+
+                <a href="{% url 'properties' %}" class="btn btn-primary mt-3 px-4 py-2 rounded-pill fw-semibold">Explore
+                    Properties</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap Icons (Include only if not already added globally) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

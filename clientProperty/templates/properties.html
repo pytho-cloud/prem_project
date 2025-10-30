@@ -72,14 +72,22 @@
               <p>{{ property.description|truncatechars:150 }}</p>
               <p><strong>Location:</strong> {{ property.location }}</p>
               <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
+              <p><strong>Sq Ft:</strong> {{ property.sq_ft }} Sq Ft</p>
               <p><strong>Price:</strong> {{ property.price }} Lakh</p>
 
-              {% if request.session.name and request.session.email and request.session.phone%}
+              {% if request.session.name and request.session.email and request.session.phone %}
+
+                {% if property.floor_plane_image %}
+                <a href="{{ property.floor_plane_image.url }}" download class="btn btn-outline-primary btn-sm mt-2 w-100">
+                      Download Floor Plan
+                    </a>
+                {% endif %}
+
                 {% if property.brochure %}
                   <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn btn-success mt-2">
-                              Download Brochure
-                            </a>
-              {% endif %}
+                    Download Brochure
+                  </a>
+                {% endif %}
 
               {% else %}
                <button class="btn btn-primary mt-2" id="requestBrochureBtn"
@@ -147,7 +155,6 @@
     const overlay = document.getElementById('loading-overlay');
     const propertyList = document.getElementById('property-list');
 
-    // Handle modal property ID
     if (contactModal && propertyIdInput) {
       contactModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -156,39 +163,33 @@
       });
     }
 
-    // Show loader when submitting filters
     if (form) {
       form.addEventListener('submit', function () {
         overlay.style.display = 'flex';
       });
     }
 
-    // Show loader on pagination click
     document.querySelectorAll('.pagination a').forEach(link => {
       link.addEventListener('click', function () {
         overlay.style.display = 'flex';
       });
     });
 
-    // Hide loader after page fully loads
     window.addEventListener('load', function () {
       setTimeout(() => {
         overlay.style.display = 'none';
         if (propertyList) propertyList.classList.add('fade-in');
-      }, 400); // 0.4s delay for smooth transition
+      }, 400);
     });
   });
 </script>
 
 <!-- 🔹 Styles -->
 <style>
-  /* Property Card */
   .property-card img.card-img-top {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
   }
 
   .property-card {
@@ -199,7 +200,6 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
 
-  /* Loading Overlay */
   #loading-overlay {
     display: none;
     position: fixed;
@@ -212,7 +212,6 @@
     justify-content: center;
   }
 
-  /* Fade-in Animation */
   .fade-in {
     animation: fadeIn 0.6s ease-in-out;
   }
@@ -223,45 +222,10 @@
   }
 </style>
 
-
 <script>
   document.getElementById('requestBrochureBtn').addEventListener('click', function() {
     window.location.href = "{% url 'login' %}";
   });
 </script>
-
-
-  {% comment %} <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const btn = document.getElementById("downloadBtn");
-
-      btn.addEventListener("click", async () => {
-        const propertyId = btn.dataset.id;
-
-        const response = await fetch(`/download-brochure/?id=${propertyId}`, {
-          method: "POST",
-          headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-            "X-Requested-With": "XMLHttpRequest"
-          }
-        });
-
-        if (response.ok) {
-          const blob = await response.blob();
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "brochure.pdf";
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-          window.URL.revokeObjectURL(url);
-        } else {
-          alert("Failed to download brochure");
-        }
-      });
-    });
-  </script> {% endcomment %}
-
 
 {% endblock content %}
