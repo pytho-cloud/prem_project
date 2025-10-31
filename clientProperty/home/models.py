@@ -1,4 +1,5 @@
 from django.db import models
+from multiselectfield import MultiSelectField  
 
 class Property(models.Model):
     BHK_CHOICES = [
@@ -13,12 +14,12 @@ class Property(models.Model):
     location = models.CharField(max_length=255)
     price = models.IntegerField()
     description = models.TextField(blank=True)
-    bhk_type = models.CharField(max_length=10, choices=BHK_CHOICES, default='2BHK')
+    bhk_type = models.CharField(null=True,blank=True,max_length=255)
     brochure = models.FileField(upload_to='property_brochures/', blank=True, null=True)
     partner_logo =  models.ImageField(upload_to="partners_logo/", blank=True, null=True)
     project_name =models.CharField(max_length=255,null=True,blank=True)
     floor_plane_image =  models.ImageField(upload_to="floor_plan/", blank=True, null=True)
-    sq_ft = models.CharField(max_length=255,null=True,blank=True)
+    sq_ft = models.CharField(null=True,blank=True,max_length=255)
     # most_recent = models.BooleanField(default=False)
     
 

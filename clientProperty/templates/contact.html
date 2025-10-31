@@ -16,9 +16,9 @@
         <div class="row g-4 align-items-stretch">
 
             <!-- Contact Form -->
-            <div class="col-md-6" data-aos="fade-right">
-                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card">
-                    <div class="card-body p-5">
+            <div class="col-md-6" data-aos="fade-right" >
+                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card" >
+                    <div class="card-body p-5" style='  background-color: #C5A556;'>
 
                         <h4 class="fw-bold mb-4 text-white">Send a message</h4>
 
@@ -35,31 +35,31 @@
                             {% csrf_token %}
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" required>
-                                <label for="name">Full Name</label>
+                                <input type="text" class="form-control" style='  background-color: #ffff;color:#000;' id="name" placeholder="Enter name" name="name" required>
+                                <label for="name"style='  color:#000;' >Full Name</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" id="phone" placeholder="Phone" name="phone" required>
-                                <label for="phone">Phone Number</label>
+                                <input type="number" class="form-control" style='  background-color: #ffff; color:#000;' id="phone" placeholder="Phone" name="phone" required>
+                                <label for="phone" style='  color:#000;' >Phone Number</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email" required>
-                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" style='  background-color: #ffff; color:#000;' id="email" placeholder="Email" name="email" required>
+                                <label for="email" style='  color:#000;' >Email Address</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="subject" placeholder="Subject" name="subject" required>
-                                <label for="subject">Subject</label>
+                                <input type="text" class="form-control" style='  background-color: #ffff; color:#000;'  id="subject" placeholder="Subject" name="subject" required>
+                                <label for="subject" style='  color:#000;' >Subject</label>
                             </div>
 
-                            <div class="form-floating mb-4">
-                                <textarea class="form-control" placeholder="Your message" name="message" id="message" style="height: 120px" required></textarea>
-                                <label for="message">Message</label>
+                            <div class="form-floating mb-4"  >
+                                <textarea class="form-control" style='  background-color: #ffff; color:#000;' placeholder="Your message" name="message" id="message" style="height: 120px" required></textarea>
+                                <label for="message" style='  color:#000;' >Message</label>
                             </div>
 
-                            <button type="submit" class="btn w-100 py-3 btn-gradient text-uppercase fw-bold">
+                            <button type="submit" class="btn  background-color: #ffff; w-100 py-3 text-uppercase fw-bold">
                                 Send Message
                             </button>
                         </form>
@@ -68,9 +68,9 @@
             </div>
 
             <!-- Contact Info -->
-            <div class="col-md-6" data-aos="fade-left">
-                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card">
-                    <div class="card-body p-5 text-white">
+            <div class="col-md-6" data-aos="fade-left" style='  background-color: #C5A556;'>
+                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card" style='  background-color: #C5A556;'>
+                    <div class="card-body p-5 text-white" style='  background-color: #C5A556;'>
                         <h4 class="fw-bold mb-4">Get in touch</h4>
 
                         <p class="mb-3"><i class="bi bi-geo-alt-fill me-2"></i> 123 Main Street, Pune, India</p>
@@ -97,14 +97,14 @@
 <!-- ✅ Custom Styling -->
 <style>
     .contact-card {
-        background: linear-gradient(145deg, #004d4d, #007373);
+        {% comment %} background: linear-gradient(145deg, #004d4d, #007373); {% endcomment %}
         color: #fff;
         border-radius: 15px;
     }
 
     .form-floating .form-control {
         border-radius: 8px;
-        background-color: #004040;
+        {% comment %} background-color: #004040; {% endcomment %}
         color: #fff;
         border: none;
     }
@@ -115,7 +115,7 @@
 
     .form-control:focus {
         box-shadow: none;
-        background-color: #003636;
+        {% comment %} background-color: #003636; {% endcomment %}
         color: #fff;
     }
 
@@ -148,9 +148,11 @@
 
     .social-icon:hover {
         background: #fff;
-        color: #007373;
+        {% comment %} color: #007373; {% endcomment %}
         transform: scale(1.15);
     }
+
+    
 </style>
 
 <!-- Bootstrap Icons -->

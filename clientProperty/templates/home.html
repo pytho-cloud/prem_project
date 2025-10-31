@@ -74,6 +74,8 @@
     <div class="img overlay" style="background-image: url('{% static 'images/Banquet_hall_highres.jpg' %}');"></div>
     <div class="img overlay" style="background-image: url('{% static 'images/Club_Highres.jpg' %}');"></div>
     <div class="img overlay" style="background-image: url('{% static 'images/shopping_highres.jpg' %}');"></div>
+    {% comment %} <div class="img overlay" style="background-image: url('{% static 'images/assets/logo.jpeg' %}');"></div> {% endcomment %}
+
   </div>
 
   <div class="container">
@@ -84,7 +86,7 @@
         </h1>
 
         <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
-          <a href="#contact" class="btn btn-primary btn-lg">
+          <a href="#contact" class="btn btn-primary btn-lg" style="background-color: #C5A556;">
             Book Appointment
           </a>
         </div>
@@ -114,13 +116,13 @@
 
         {% if request.session.name and request.session.email and request.session.phone %}
           {% if item.brochure %}
-          <a href="{{ item.brochure.url }}" class="btn btn-primary btn-sm" download>
+          <a href="{{ item.brochure.url }}" class="btn btn-primary btn-sm" style="background-color: #d4af37;" download>
             Download Brochure
           </a>
           {% endif %}
         {% else %}
         <button class="btn btn-primary btn-sm"
-                onclick="requestBrochure('{{ item.id }}')">
+                onclick="requestBrochure('{{ item.id }}')"  style="background-color: #d4af37;">
           Request Brochure
         </button>
         {% endif %}
@@ -155,7 +157,7 @@
     </div>
   </div>
 
-  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+  {% comment %} <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
     <div class="property-card position-relative overflow-hidden">
       <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm w-100" />
       <div class="overlay d-flex flex-column justify-content-center align-items-center">
@@ -165,7 +167,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </div> {% endcomment %}
 
 </div>
 

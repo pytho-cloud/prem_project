@@ -13,7 +13,7 @@
 
   <h2 class="mb-4 text-center">Property Listings</h2>
 
-  <div class="row">
+  <div class="row p-4">
     
     <!-- Sidebar Filter -->
     <div class="col-md-3">
@@ -21,10 +21,14 @@
         <h5 class="mb-3">Filter Properties</h5>
 
         <form method="GET" id="filter-form">
-
           <div class="mb-3">
             <label class="form-label">Search</label>
             <input type="text" name="q" class="form-control" placeholder="Location or Name" value="{{ request.GET.q }}">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Enter Sqft</label>
+            <input type="text" name="sq_ft" class="form-control" placeholder="Enter your Sqft" value="{{ request.GET.sq_ft }}">
           </div>
 
           <div class="mb-3">
@@ -48,8 +52,8 @@
             <input type="number" name="max_price" class="form-control" value="{{ request.GET.max_price }}">
           </div>
 
-          <button class="btn btn-primary w-100" type="submit">Apply Filters</button>
-          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2">Clear Filters</a>
+          <button class="btn btn-primary w-100" type="submit" style="background-color: #d4af37;">Apply Filters</button>
+          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2" style="background-color: #d4af37;">Clear Filters</a>
         </form>
       </div>
     </div>
@@ -59,7 +63,7 @@
       <div class="row fade-in" id="property-list">
         {% for property in page_obj %}
         <div class="col-md-4 d-flex justify-content-center">
-          <div class="property-card mb-4 border rounded bg-white" style="width: 300px;">
+          <div class="property-card mb-4 border rounded bg-white" style="width: 300px; position: relative;">
             
             {% if property.image %}
               <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.name }}">
@@ -69,31 +73,38 @@
 
             <div class="p-3">
               <h5>{{ property.name }}</h5>
-              <p>{{ property.description|truncatechars:150 }}</p>
+
+              <!-- Hover Dialog Trigger -->
+              <div class="property-description">
+                <p class="text-muted small">Hover to view full description</p>
+                <div class="hover-dialog">
+                  <p>{{ property.description }}</p>
+                </div>
+              </div>
+
               <p><strong>Location:</strong> {{ property.location }}</p>
               <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
               <p><strong>Sq Ft:</strong> {{ property.sq_ft }} Sq Ft</p>
-              <p><strong>Price:</strong> {{ property.price }} Lakh</p>
+              {% comment %} <p><strong>Price:</strong> {{ property.price }} Lakh</p> {% endcomment %}
 
               {% if request.session.name and request.session.email and request.session.phone %}
-
                 {% if property.floor_plane_image %}
-                <a href="{{ property.floor_plane_image.url }}" download class="btn btn-outline-primary btn-sm mt-2 w-100">
-                      Download Floor Plan
-                    </a>
-                {% endif %}
-
-                {% if property.brochure %}
-                  <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn btn-success mt-2">
-                    Download Brochure
+                  <a href="{{ property.floor_plane_image.url }}" download class="btn btn-outline-primary btn-sm mt-2 w-100">
+                    Download Floor Plan
                   </a>
                 {% endif %}
 
+                {% if property.brochure %}
+                  <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn mt-2" style="background-color: #d4af37; color: #fff;">
+                    Download Brochure
+                  </a>
+                {% endif %}
               {% else %}
-               <button class="btn btn-primary mt-2" id="requestBrochureBtn"
-                      data-property-id="{{ property.id }}">
-                Request Brochure
-              </button>
+                <button class="btn mt-2 request-brochure-btn" style="background-color: #d4af37; color: #fff;"
+                    data-property-id="{{ property.id }}">
+              Request Brochure
+            </button>
+
               {% endif %}
             </div>
           </div>
@@ -107,12 +118,9 @@
       {% if page_obj.has_other_pages %}
       <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">
-
           {% if page_obj.has_previous %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
-                Previous
-              </a>
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
             </li>
           {% else %}
             <li class="page-item disabled"><span class="page-link">Previous</span></li>
@@ -122,19 +130,13 @@
             {% if page_obj.number == num %}
               <li class="page-item active"><span class="page-link">{{ num }}</span></li>
             {% else %}
-              <li class="page-item">
-                <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
-                  {{ num }}
-                </a>
-              </li>
+              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
             {% endif %}
           {% endfor %}
 
           {% if page_obj.has_next %}
             <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}{% if request.GET.bhk %}&bhk={{ request.GET.bhk }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">
-                Next
-              </a>
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
             </li>
           {% else %}
             <li class="page-item disabled"><span class="page-link">Next</span></li>
@@ -146,22 +148,12 @@
   </div>
 </div>
 
-<!-- 🔹 JS Script for Loader and Modal -->
+<!-- 🔹 JS Script for Loader -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const contactModal = document.getElementById('contactModal');
-    const propertyIdInput = document.getElementById('propertyIdInput');
-    const form = document.getElementById('filter-form');
     const overlay = document.getElementById('loading-overlay');
+    const form = document.getElementById('filter-form');
     const propertyList = document.getElementById('property-list');
-
-    if (contactModal && propertyIdInput) {
-      contactModal.addEventListener('show.bs.modal', function (event) {
-        const button = event.relatedTarget;
-        const propertyId = button.getAttribute('data-property-id');
-        propertyIdInput.value = propertyId;
-      });
-    }
 
     if (form) {
       form.addEventListener('submit', function () {
@@ -181,8 +173,16 @@
         if (propertyList) propertyList.classList.add('fade-in');
       }, 400);
     });
+
+    // ✅ Fix: Add click for all "Request Brochure" buttons
+    document.querySelectorAll('.request-brochure-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        window.location.href = "{% url 'login' %}";
+      });
+    });
   });
 </script>
+
 
 <!-- 🔹 Styles -->
 <style>
@@ -194,10 +194,30 @@
 
   .property-card {
     transition: box-shadow 0.3s ease;
+    cursor: pointer;
   }
 
   .property-card:hover {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Hover dialog styles */
+  .hover-dialog {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 105%;
+    width: 250px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+
+  .property-card:hover .hover-dialog {
+    display: block;
   }
 
   #loading-overlay {
@@ -221,11 +241,4 @@
     to { opacity: 1; transform: translateY(0); }
   }
 </style>
-
-<script>
-  document.getElementById('requestBrochureBtn').addEventListener('click', function() {
-    window.location.href = "{% url 'login' %}";
-  });
-</script>
-
 {% endblock content %}

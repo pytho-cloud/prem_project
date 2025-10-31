@@ -45,7 +45,7 @@ def home(request):
 
     properties = Property.objects.all()
 
-    banner = Property.objects.order_by('-id')[:3]
+    banner = Property.objects.order_by('-id')[:6]
    
 
 
@@ -101,6 +101,8 @@ def properties(request):
 
     q = request.GET.get('q')
     bhk = request.GET.get('bhk')
+    sq_ft = request.GET.get('sq_ft')
+
     min_price = request.GET.get('min_price')
     max_price = request.GET.get('max_price')
 
@@ -110,6 +112,10 @@ def properties(request):
             Q(name__icontains=q) | Q(location__icontains=q)
         )
 
+    if sq_ft:
+        properties = properties.filter(
+            Q(sq_ft__icontains = sq_ft)
+        )
     if bhk:
         if bhk == '4':  # 4+ BHK case
             properties = properties.filter(bhk_type__gte=4)
@@ -138,28 +144,6 @@ def properties(request):
 
     return render(request, "properties.html", context)
 
-
-# def submit_form(request):
-    
-#     # name = request.POST.get('name')
-   
-#     phone = request.POST.get('phone_number')
-#     check_phone_number = Lead.objects.get(phone= phone)
-
-#     token = request.POST.get('token')
-
-#     if token :
-#         return render(request,'properties.html')
-
-#     if not check_phone_number:
-#         name = request.POST.get('name')
-#         email = request.POST.get('email')
-#         token = request.POST.get('token')
-#         lead = Lead.objects.create(name=name,phone=phone,email=email,token=token)
-#         lead.save()
-
-#         return render(request,'properties.html',{"token": token})
-
         
 
 def submit_contact(request):
@@ -183,12 +167,6 @@ def submit_contact(request):
         messages.success(request, "Thank you! You can now download brochures directly.")
         return redirect('properties')
     return redirect('properties')
-
-
-
-
-
-
 
 
 
