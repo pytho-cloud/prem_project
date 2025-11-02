@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Property, Lead, Project, ContactMessage
+from .models import Property, Lead, Project, ContactMessage ,FeatureListing
 
 # Property Admin
 @admin.register(Property)
@@ -57,3 +57,12 @@ class ContactMessageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = ('name', 'email', 'contact','subject', 'created_at')
     search_fields = ('name', 'email', 'contact','subject')
     list_filter = ('created_at',)  
+
+
+
+
+
+@admin.register(FeatureListing)
+class FeatureListingAdmin(ImportExportModelAdmin):
+    list_display = ('property', 'featured_project_name', 'featured_location', 'featured_price', 'is_active')
+    list_filter = ('is_active',)

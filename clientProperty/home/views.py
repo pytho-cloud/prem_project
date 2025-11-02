@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-from .models import Property, Lead ,ContactMessage
+
+from .models import Property, Lead ,ContactMessage 
 import json
 from  .filters import generate_key
 from django.shortcuts import render, redirect
@@ -12,6 +13,7 @@ from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, HttpResponseBadRequest
 from .utils import *
+from .models import Property ,FeatureListing
 
 # 🏠 Home Page with Filter
 def home(request):
@@ -45,14 +47,14 @@ def home(request):
 
     properties = Property.objects.all()
 
-    banner = Property.objects.order_by('-id')[:6]
+    featured = FeatureListing.objects.filter(is_active=True)[:6]
    
 
 
 
     context = {
         'properties': properties,
-        'banner': banner
+        'featured': featured
     }
     print("data is coming " , context)
     return render(request, "home.html", context)
@@ -91,8 +93,6 @@ def about(request):
     return render(request, "about.html")
 
 
-from django.shortcuts import render
-from .models import Property
 
 def properties(request):
     properties = Property.objects.all()
@@ -145,6 +145,18 @@ def properties(request):
     return render(request, "properties.html", context)
 
         
+
+def single_product_view(request):
+    id = request.GET.get('id')
+    if not id:
+        return redirect('properties')  # If id is missing → redirect
+
+    property_obj = get_object_or_404(Property, id=id)
+
+    return render(request, 'single_product.html', {'property': property_obj})
+
+
+
 
 def submit_contact(request):
     if request.method == "POST":

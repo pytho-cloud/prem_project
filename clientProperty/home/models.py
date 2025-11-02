@@ -13,6 +13,7 @@ class Property(models.Model):
     image = models.ImageField(upload_to="properties/", blank=True, null=True)
     location = models.CharField(max_length=255)
     price = models.IntegerField()
+    short_description = models.TextField(blank=True)
     description = models.TextField(blank=True)
     bhk_type = models.CharField(null=True,blank=True,max_length=255)
     brochure = models.FileField(upload_to='property_brochures/', blank=True, null=True)
@@ -20,6 +21,16 @@ class Property(models.Model):
     project_name =models.CharField(max_length=255,null=True,blank=True)
     floor_plane_image =  models.ImageField(upload_to="floor_plan/", blank=True, null=True)
     sq_ft = models.CharField(null=True,blank=True,max_length=255)
+    phone_number =  models.CharField(max_length=20, null=True, blank=True)
+    selling_status = models.CharField(  # ✅ New: Status field
+        max_length=30,
+        choices=[
+            ('Ready to Move', 'Ready to Move'),
+            ('Under Construction', 'Under Construction'),
+            ('Sold Out', 'Sold Out')
+        ],
+        default='Ready to Move'
+    )
     # most_recent = models.BooleanField(default=False)
     
 
@@ -79,3 +90,27 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
+
+
+
+
+class FeatureListing(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    featured_project_name = models.CharField(max_length=255, blank=True, null=True)
+    featured_location = models.CharField(max_length=255, blank=True, null=True)
+    featured_price = models.CharField(max_length=50, blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if self.property:
+            if not self.featured_project_name:
+                self.featured_project_name = self.property.project_name
+            if not self.featured_location:
+                self.featured_location = self.property.location
+            if not self.featured_price:
+                self.featured_price = self.property.price
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.property.name} - Featured"
+

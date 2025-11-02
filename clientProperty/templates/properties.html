@@ -28,7 +28,8 @@
 
           <div class="mb-3">
             <label class="form-label">Enter Sqft</label>
-            <input type="text" name="sq_ft" class="form-control" placeholder="Enter your Sqft" value="{{ request.GET.sq_ft }}">
+            <input type="text" name="sq_ft" class="form-control" placeholder="Enter your Sqft"
+              value="{{ request.GET.sq_ft }}">
           </div>
 
           <div class="mb-3">
@@ -53,7 +54,8 @@
           </div>
 
           <button class="btn btn-primary w-100" type="submit" style="background-color: #d4af37;">Apply Filters</button>
-          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2" style="background-color: #d4af37;">Clear Filters</a>
+          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2"
+            style="background-color: #d4af37;">Clear Filters</a>
         </form>
       </div>
     </div>
@@ -64,49 +66,49 @@
         {% for property in page_obj %}
         <div class="col-md-4 d-flex justify-content-center">
           <div class="property-card mb-4 border rounded bg-white" style="width: 300px; position: relative;">
-            
+
             {% if property.image %}
-              <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.name }}">
+            <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.name }}">
             {% else %}
-              <img src="{% static 'images/default_property.jpg' %}" class="card-img-top" alt="No image">
+            <img src="{% static 'images/default_property.jpg' %}" class="card-img-top" alt="No image available">
             {% endif %}
 
             <div class="p-3">
               <h5>{{ property.name }}</h5>
+              <p class="text-muted small">{{property.short_description}}</p>
 
               <!-- Hover Dialog Trigger -->
-              <div class="property-description">
+              <!-- <div class="property-description">
                 <p class="text-muted small">Hover to view full description</p>
                 <div class="hover-dialog">
                   <p>{{ property.description }}</p>
                 </div>
-              </div>
+              </div> -->
 
               <p><strong>Location:</strong> {{ property.location }}</p>
               <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
               <p><strong>Sq Ft:</strong> {{ property.sq_ft }} Sq Ft</p>
-              {% comment %} <p><strong>Price:</strong> {{ property.price }} Lakh</p> {% endcomment %}
+
+              <a href="{% url 'single_product' %}?id={{ property.id }}"
+                class="btn btn-outline-primary btn-sm mt-2 w-100 view-property-btn">
+                View Property
+              </a>
 
               {% if request.session.name and request.session.email and request.session.phone %}
-                {% if property.floor_plane_image %}
-                  <a href="{{ property.floor_plane_image.url }}" download class="btn btn-outline-primary btn-sm mt-2 w-100">
-                    Download Floor Plan
-                  </a>
-                {% endif %}
-
-                {% if property.brochure %}
-                  <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn mt-2" style="background-color: #d4af37; color: #fff;">
-                    Download Brochure
-                  </a>
-                {% endif %}
+              {% if property.brochure %}
+              <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn mt-2"
+                style="background-color: #d4af37; color: #fff;">
+                Download Brochure
+              </a>
+              {% endif %}
               {% else %}
-                <button class="btn mt-2 request-brochure-btn" style="background-color: #d4af37; color: #fff;"
-                    data-property-id="{{ property.id }}">
-              Request Brochure
-            </button>
-
+              <button class="btn mt-2 request-brochure-btn" style="background-color: #d4af37; color: #fff;"
+                data-property-id="{{ property.id }}">
+                Request Brochure
+              </button>
               {% endif %}
             </div>
+
           </div>
         </div>
         {% empty %}
@@ -119,68 +121,75 @@
       <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">
           {% if page_obj.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+          </li>
           {% else %}
-            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+          <li class="page-item disabled"><span class="page-link">Previous</span></li>
           {% endif %}
 
           {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-            {% else %}
-              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-            {% endif %}
+          {% if page_obj.number == num %}
+          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
           {% endfor %}
 
           {% if page_obj.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
-            </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+          </li>
           {% else %}
-            <li class="page-item disabled"><span class="page-link">Next</span></li>
+          <li class="page-item disabled"><span class="page-link">Next</span></li>
           {% endif %}
         </ul>
       </nav>
       {% endif %}
+
     </div>
   </div>
 </div>
 
-<!-- 🔹 JS Script for Loader -->
+<!-- ✅ Loader + Button Click Script -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const overlay = document.getElementById('loading-overlay');
-    const form = document.getElementById('filter-form');
-    const propertyList = document.getElementById('property-list');
+document.addEventListener("DOMContentLoaded", function () {
+    const overlay = document.getElementById("loading-overlay");
 
-    if (form) {
-      form.addEventListener('submit', function () {
-        overlay.style.display = 'flex';
-      });
+    // ✅ Show Loader only on actions
+    function showLoader() {
+        overlay.style.display = "flex";
     }
 
-    document.querySelectorAll('.pagination a').forEach(link => {
-      link.addEventListener('click', function () {
-        overlay.style.display = 'flex';
-      });
+    // ✅ Hide Loader only once page render complete
+    window.addEventListener("pageshow", function () {
+        overlay.style.display = "none";
     });
 
-    window.addEventListener('load', function () {
-      setTimeout(() => {
-        overlay.style.display = 'none';
-        if (propertyList) propertyList.classList.add('fade-in');
-      }, 400);
+    // ✅ Filter Submit Loader
+    const form = document.getElementById("filter-form");
+    if (form) {
+        form.addEventListener("submit", showLoader);
+    }
+
+    // ✅ Pagination Loader
+    document.querySelectorAll(".pagination a").forEach(link => {
+        link.addEventListener("click", showLoader);
     });
 
-    // ✅ Fix: Add click for all "Request Brochure" buttons
-    document.querySelectorAll('.request-brochure-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        window.location.href = "{% url 'login' %}";
-      });
+    // ✅ View Property Loader
+    document.querySelectorAll(".view-property-btn").forEach(btn => {
+        btn.addEventListener("click", showLoader);
     });
-  });
+
+    // ✅ Request Brochure → Login
+    document.querySelectorAll(".request-brochure-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            showLoader();
+            window.location.href = "{% url 'login' %}";
+        });
+    });
+});
 </script>
 
 
@@ -192,27 +201,21 @@
     object-fit: cover;
   }
 
-  .property-card {
-    transition: box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-
   .property-card:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   }
 
-  /* Hover dialog styles */
   .hover-dialog {
     display: none;
     position: absolute;
     top: 10px;
     left: 105%;
     width: 250px;
-    background-color: #fff;
+    background: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
 
@@ -223,9 +226,11 @@
   #loading-overlay {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(255,255,255,0.7);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.75);
     z-index: 9999;
     display: flex;
     align-items: center;
@@ -233,12 +238,13 @@
   }
 
   .fade-in {
-    animation: fadeIn 0.6s ease-in-out;
+    animation: fadeIn 0.7s ease-in;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
 </style>
+
 {% endblock content %}

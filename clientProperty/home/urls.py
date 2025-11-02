@@ -12,5 +12,7 @@ urlpatterns = [
     path('contact/', views.contact_view, name='contact'),
     path('login/', views.login, name='login'),
     path('download-brochure/', views.download_brochure, name='download_brochure'),
+    path('property/', views.single_product_view, name='single_product')
+
 
 ]

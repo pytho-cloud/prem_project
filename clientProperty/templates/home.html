@@ -4,65 +4,30 @@
 {% block title %}Home | Nesto Properties{% endblock title %}
 
 {% block content %}
-<style>
-  .property-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    height: 280px;
-  }
 
-  .property-card img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
+<!-- MDB Material Design CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  .property-card:hover img {
-    transform: scale(1.15);
-  }
-
-  .property-card .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.55);
-    opacity: 0;
-    transition: 0.4s ease;
-  }
-
-  .property-card:hover .overlay {
-    opacity: 1;
-  }
-
-  .property-card .overlay h5,
-  .property-card .overlay h7,
-  .property-card .overlay a {
-    transform: translateY(20px);
-    opacity: 0;
-    transition: 0.4s ease;
-  }
-
-  .property-card:hover .overlay h5,
-  .property-card:hover .overlay h7,
-  .property-card:hover .overlay a {
-    transform: translateY(0);
-    opacity: 1;
-  }
-</style>
 
 <!-- AOS CSS -->
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+  .hero .heading {
+    color: white;
+    font-weight: 700;
+  }
+</style>
 
 <!-- AOS JS -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-  // Initialize AOS
   document.addEventListener("DOMContentLoaded", function () {
     AOS.init({
-      duration: 1000,   // animation duration in ms
-      once: true,       // animation happens only once
+      duration: 1000,
+      once: true,
       easing: "ease-in-out",
     });
   });
@@ -71,135 +36,175 @@
 <!-- Hero Section -->
 <div class="hero">
   <div class="hero-slide">
-    <div class="img overlay" style="background-image: url('{% static 'images/Banquet_hall_highres.jpg' %}');"></div>
-    <div class="img overlay" style="background-image: url('{% static 'images/Club_Highres.jpg' %}');"></div>
-    <div class="img overlay" style="background-image: url('{% static 'images/shopping_highres.jpg' %}');"></div>
-    {% comment %} <div class="img overlay" style="background-image: url('{% static 'images/assets/logo.jpeg' %}');"></div> {% endcomment %}
-
+    <div class="img overlay" style="background-image: url('{% static " images/Banquet_hall_highres.jpg" %}');"></div>
+    <div class="img overlay" style="background-image: url('{% static " images/Club_Highres.jpg" %}');"></div>
+    <div class="img overlay" style="background-image: url('{% static " images/shopping_highres.jpg" %}');"></div>
   </div>
 
   <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-lg-9 text-center">
-        <h1 class="heading" data-aos="fade-up" data-aos-delay="100">
-          "Nesto Properties — Building Trust, One Home at a Time."
-        </h1>
+    <div class="row justify-content-center align-items-center text-end">
+      <div class="col-lg-9">
+
+        <h1 class="heading" data-aos="fade-up">Nesto Property — Building Trust, One Home at a Time.</h1>
+
+        <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
+          Explore high-standard homes, gated communities, and luxury estates with trusted documentation.
+        </h5>
 
         <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
-          <a href="#contact" class="btn btn-primary btn-lg" style="background-color: #C5A556;">
-            Book Appointment
+          <a href="{% url 'properties' %}" class="btn btn-primary btn-md"
+            style="background-color:#C5A556; border-color:#C5A556;">
+            View Properties
           </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Our Properties -->
-<div class="container py-5">
-  <h1 class="text-center mb-5" data-aos="fade-up">Our Properties</h1>
-<div class="row g-4">
-
-  {% for item in banner %}
-  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-    <div class="property-card position-relative overflow-hidden">
-
-      {% if item.image %}
-      <img src="{{ item.image.url }}" alt="{{ item.name }}" class="img-fluid w-100" />
-      {% else %}
-      <img src="{% static 'images/default.jpg' %}" alt="No Image" class="img-fluid w-100" />
-      {% endif %}
-
-      <div class="overlay d-flex flex-column justify-content-center align-items-center">
-        <h5 class="text-white mb-2">{{ item.project_name }}</h5>
-        <h6 class="text-white mb-2">{{ item.name }}</h6>
-
-        {% if request.session.name and request.session.email and request.session.phone %}
-          {% if item.brochure %}
-          <a href="{{ item.brochure.url }}" class="btn btn-primary btn-sm" style="background-color: #d4af37;" download>
+          <a href="#contact" class="btn btn-light btn-md text-dark" style="color:#C5A556;">
             Download Brochure
           </a>
-          {% endif %}
-        {% else %}
-        <button class="btn btn-primary btn-sm"
-                onclick="requestBrochure('{{ item.id }}')"  style="background-color: #d4af37;">
-          Request Brochure
-        </button>
-        {% endif %}
-      </div>
+        </div>
 
-    </div>
-  </div>
-  {% endfor %}
-
-  <!-- Static Property Cards -->
-  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-    <div class="property-card position-relative overflow-hidden">
-      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 1" class="img-fluid rounded shadow-sm w-100" />
-      <div class="overlay d-flex flex-column justify-content-center align-items-center">
-        <h5 class="text-white mb-2">Lunaris</h5>
-        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-          Download Brochure
-        </a>
       </div>
     </div>
   </div>
-
-  <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-    <div class="property-card position-relative overflow-hidden">
-      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 2" class="img-fluid rounded shadow-sm w-100" />
-      <div class="overlay d-flex flex-column justify-content-center align-items-center">
-        <h5 class="text-white mb-2">Solara</h5>
-        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-          Download Brochure
-        </a>
-      </div>
-    </div>
-  </div>
-
-  {% comment %} <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-    <div class="property-card position-relative overflow-hidden">
-      <img src="{% static 'images/img_1.jpg' %}" alt="Gallery 3" class="img-fluid rounded shadow-sm w-100" />
-      <div class="overlay d-flex flex-column justify-content-center align-items-center">
-        <h5 class="text-white mb-2">Aurora</h5>
-        <a href="{% static 'brochures/brochure1.pdf' %}" class="btn btn-primary btn-sm" download>
-          Download Brochure
-        </a>
-      </div>
-    </div>
-  </div> {% endcomment %}
-
 </div>
 
+<!-- Our Properties Section -->
+<div class="container py-5">
+  <h2 class="text-center mb-5 font-bold" data-aos="fade-up" style="font:bold;">Featured Listings</h2>
+  <div class="row g-4">
+
+    {% for feature in featured %}
+    {% with item=feature.property %}
+    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
+
+      <div class="card shadow-3" style="border-radius:14px;">
+
+        <!-- Image Section -->
+        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+          {% if item.image %}
+          <img src="{{ item.image.url }}" class="img-fluid"
+            style="height:230px; width:100%; object-fit:cover; border-top-left-radius:14px; border-top-right-radius:14px;">
+          {% else %}
+          <img src="{% static 'images/default.jpg' %}" class="img-fluid"
+            style="height:230px; width:100%; object-fit:cover; border-top-left-radius:14px; border-top-right-radius:14px;">
+          {% endif %}
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body text-start">
+
+          <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
+          <h5 class="fw-bold text-dark">{{ property.rea }}</h5>
+
+
+          <p class="text-muted mb-1">{{ item.selling_status }}</p>
+
+          {% if feature.featured_location %}
+          <p class="mb-1">
+            <i class="fas fa-map-marker-alt text-danger me-1"></i> {{ feature.featured_location }}
+          </p>
+          {% endif %}
+
+          {% if feature.featured_price %}
+          <p class="fw-bold text-success">₹ {{ feature.featured_price }}</p>
+          {% endif %}
+
+          <!-- <div class="d-grid gap-2 mt-3">
+            <a href="{% url 'single_product' %}?id={{ item.id }}" class="btn btn-dark btn-sm"
+              style="background-color:#2C2C2C;">
+              <i class="fas fa-eye me-1"></i> View Details
+            </a>
+          </div> -->
+
+        </div>
+
+
+      </div>
+
+    </div>
+    {% endwith %}
+    {% endfor %}
+
   </div>
+</div>
 
-  <script>
-    function requestBrochure(id) {
-  window.location.href = "{% url 'login' %}?next=/property/" + id;
-}
-  </script>
+<!-- Why Choose Nesto Property Section -->
 
-  <!-- Other sections -->
-  <div data-aos="fade-up" data-aos-delay="100">
-    {% include 'home/feature.html' %}
+
+<section class="py-5">
+  <div class="container">
+
+    <h2 class="text-center fw-bold mb-5" data-aos="fade-up">
+      Why Choose Nesto Property
+    </h2>
+
+    <div class="row text-center g-4">
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-location-dot fa-2x mb-3"></i>
+        <h5 class="fw-bold">Local Expertise</h5>
+        <p class="text-muted small">
+          Extensive network across Mumbai, Navi Mumbai & Thane real estate market.
+        </p>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <i class="fas fa-handshake fa-2x mb-3"></i>
+        <h5 class="fw-bold">Verified Partners</h5>
+        <p class="text-muted small">
+          Collaboration with trusted & RERA-approved developers only.
+        </p>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <i class="fas fa-shield-heart fa-2x mb-3"></i>
+        <h5 class="fw-bold">Hassle-free Process</h5>
+        <p class="text-muted small">
+          Smooth paperwork, loan assistance & expert buyer support.
+        </p>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+        <i class="fas fa-tags fa-2x mb-3"></i>
+        <h5 class="fw-bold">Best Pricing</h5>
+        <p class="text-muted small">
+          Exclusive deals, discounts & price transparency guaranteed.
+        </p>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+        <i class="fas fa-headset fa-2x mb-3"></i>
+        <h5 class="fw-bold">24/7 Support</h5>
+        <p class="text-muted small">
+          Our team is always available for guidance & property assistance.
+        </p>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+        <i class="fas fa-file-contract fa-2x mb-3"></i>
+        <h5 class="fw-bold">RERA Compliance</h5>
+        <p class="text-muted small">
+          All listed properties go through legal verification & safety checks.
+        </p>
+      </div>
+
+    </div>
+
   </div>
-
-  <div data-aos="fade-up" data-aos-delay="200">
-    {% include 'home/homeAbout.html' %}
-  </div>
-
-    <div data-aos="fade-up" data-aos-delay="200">
-    {% include 'home/content.html' %}
-  </div>
-
-  <div data-aos="fade-up" data-aos-delay="300">
-    {% include 'about.html' %}
-  </div>
-
-  <div data-aos="fade-up" data-aos-delay="300">
-    {% include 'contact.html' %}
-  </div>
+</section>
 
 
 
-  {% endblock content %}
+
+<script>
+  function requestBrochure(id) {
+    window.location.href = "{% url 'login' %}?next=/property/" + id;
+  }
+</script>
+
+<!-- Include Other Sections -->
+<div data-aos="fade-up">{% include 'home/feature.html' %}</div>
+<div data-aos="fade-up">{% include 'home/homeAbout.html' %}</div>
+<div data-aos="fade-up">{% include 'home/content.html' %}</div>
+<div data-aos="fade-up">{% include 'about.html' %}</div>
+<div data-aos="fade-up">{% include 'contact.html' %}</div>
+
+{% endblock content %}
