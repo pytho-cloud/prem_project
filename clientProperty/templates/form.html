@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | Django App</title>
+  <title>Request Brochure | Nesto Property</title>
 
   <!-- AOS CSS -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -15,10 +15,10 @@
 <body>
 
   <div class="container" data-aos="zoom-in">
+    <!-- ✅ Send form to submit_contact instead of login -->
     <form method="POST" action="{% url 'login' %}" class="login-form">
       {% csrf_token %}
-      <h2>Submit Property Details 🏢</h2>
-
+      <h2>Submit Your Details 🏢</h2>
 
       <div class="input-group" data-aos="fade-right" data-aos-delay="200">
         <label for="username">Full Name</label>
@@ -30,14 +30,21 @@
         <input type="email" id="email" name="email" placeholder="Enter your email" required>
       </div>
 
-        <div class="input-group" data-aos="fade-left" data-aos-delay="400">
+      <div class="input-group" data-aos="fade-left" data-aos-delay="600">
         <label for="phone">Phone Number</label>
-        <input type="phone" id="phone" name="phone" placeholder="Enter your phone number" required>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
       </div>
-      <button type="submit" data-aos="fade-up" data-aos-delay="600">Submit</button>
 
-      <p class="register-text" data-aos="fade-up" data-aos-delay="800">
-        {% comment %} Don’t have an account? <a href="{% url 'register' %}">Register</a> {% endcomment %}
+      <!-- ✅ Hidden fields to send page info and property -->
+      <input type="hidden" name="page" value="{{ request.GET.page|default:'home' }}">
+      <input type="hidden" name="property_id" value="{{ request.GET.id|default:'' }}">
+
+      <button type="submit" data-aos="fade-up" data-aos-delay="800" style="background-color: #00C853; color: #fff;">
+        Submit
+      </button>
+
+      <p class="register-text" data-aos="fade-up" data-aos-delay="1000">
+        We’ll only use your details to provide brochures and updates.
       </p>
     </form>
   </div>

@@ -100,3 +100,25 @@
 
   </div>
 </section>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const buttons = document.querySelectorAll(".request-brochure-btn");
+  const loginUrl = "{% url 'login' %}";  // Django resolves this safely
+
+  buttons.forEach(button => {
+    button.addEventListener("click", function () {
+      showLoader(); // Optional: show your loader animation
+      // Redirect after a short delay so loader is visible
+      setTimeout(() => {
+        window.location.href = loginUrl;
+      }, 300);
+    });
+  });
+});
+</script>
+

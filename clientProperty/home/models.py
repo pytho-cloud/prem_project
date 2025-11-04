@@ -121,6 +121,7 @@ class FeatureListing(models.Model):
 
 
 class BannerModel(models.Model):
+    property = models.ForeignKey(Property,on_delete=models.CASCADE,blank=True,null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
     subtitle = models.CharField(max_length=300, blank=True, null=True)
     banner_image = models.ImageField(upload_to="banner/slider/")

@@ -74,6 +74,21 @@
   text-shadow: 0px 4px 20px rgba(0,0,0,0.6);
 }
 
+
+.btn-outline-light {
+    
+  background-color: #00C853;
+  border-radius:25px;
+  
+  color: #fff;
+  transition: all 0.3s ease;
+}
+.btn-outline-light:hover {
+  background-color: #007bff;
+  color: #000;
+}
+
+
 /* Mobile Responsive */
 @media (max-width: 991px) {
   .banner-content {
@@ -111,23 +126,46 @@
     {% for b in banners %}
     <div class="img overlay" style="background-image: url('{{ b.banner_image.url }}');">
 
-      <!-- ✅ Each banner shows title/subtitle on bottom right -->
+      {% with prop=b.property %}
       <div class="banner-content text-end" data-aos="fade-up">
         <h1 class="heading">{{ b.title }}</h1>
         <h5 class="sub-text" data-aos="fade-up" data-aos-delay="200">
           {{ b.subtitle }}
         </h5>
+
+        <!-- ✅ Brochure Logic -->
+        {% if prop.brochure %}
+          {% if request.session.name and request.session.email and request.session.phone %}
+            <!-- ✅ Show Download Button -->
+            <a href="{% url 'download_brochure' %}?id={{ prop.id }}" 
+               class="btn mt-3"
+               style="background-color: #00C853; color: #fff; border-raidus :2px solid #00C853;">
+              <i class="bi bi-download"></i> Download Brochure
+            </a>
+          {% else %}
+            <!-- ✅ Show Request Brochure Button -->
+         <a 
+          href="{% url 'login' %}?page=home&id={{ prop.id }}" 
+          class="btn mt-3 request-brochure-btn" 
+          style="background-color: #00C853; color: #fff; border: 2px solid #00C853; border-radius: 5px; text-decoration: none;"
+          data-property-id="{{ prop.id }}">
+          Request Brochure
+        </a>
+
+          {% endif %}
+        {% endif %}
+
       </div>
+      {% endwith %}
 
     </div>
     {% endfor %}
   </div>
 
-  <!-- ✅ Your Old Static Content (Kept Exactly as You Want) -->
-   <div class="container">
+  <!-- ✅ Your Old Static Content -->
+  <div class="container">
     <div class="row justify-content-center align-items-center text-end">
       <div class="col-lg-9">
-
         <h1 class="heading" data-aos="fade-up">
           Nesto Property — Building Trust, One Home at a Time.
         </h1>
@@ -135,17 +173,17 @@
         <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
           Your Trusted Real Estate Partner
         </h5>
-         <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
-        <a href="{% url 'properties' %}" class="btn custom-blue-btn">
-          View Properties
-        </a>
-      </div>
-
+        <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
+          <a href="{% url 'properties' %}" class="btn custom-blue-btn">
+            View Properties
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
 </div>
+
 
 
 <!-- Our Properties Section -->
@@ -277,11 +315,10 @@
 
 
 
-<script>
-  function requestBrochure(id) {
-    window.location.href = "{% url 'login' %}?next=/property/" + id;
-  }
-</script>
+
+
+
+
 
 <!-- Include Other Sections -->
 <div data-aos="fade-up">{% include 'home/feature.html' %}</div>
@@ -290,4 +327,30 @@
 <div data-aos="fade-up">{% include 'about.html' %}</div>
 <div data-aos="fade-up">{% include 'contact.html' %}</div>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Key to remember last popup time
+    const popupKey = "leadModalLastShown";
+    const showInterval = 10 * 1000; // 10 seconds
+
+    function showLeadPopup() {
+      const modal = new mdb.Modal(document.getElementById('leadModal'));
+      modal.show();
+      localStorage.setItem(popupKey, new Date().getTime());
+    }
+
+    // check every 10 sec
+    setInterval(() => {
+      const now = new Date().getTime();
+      const lastShown = localStorage.getItem(popupKey);
+      if (!lastShown || now - lastShown > showInterval) {
+        showLeadPopup();
+      }
+    }, showInterval);
+  });
+</script>
+
+
 {% endblock content %}
+<!-- 📩 Auto Popup Form -->
+

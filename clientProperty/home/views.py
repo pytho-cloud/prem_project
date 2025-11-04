@@ -158,18 +158,20 @@ def single_product_view(request):
 
 
 
+
 def submit_contact(request):
     if request.method == "POST":
         name = request.POST.get("username")
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         property_id = request.POST.get("property_id")
+        page = request.POST.get("page")  # ✅ get 'page' from hidden input or form data
 
-        # Save lead
+        # Save lead (assuming generate_key and Lead model exist)
         token = generate_key(len(email))
         Lead.objects.create(name=name, email=email, phone=phone, token=token)
 
-        # Mark that user has filled the form
+        # ✅ Save session info
         request.session['name'] = name
         request.session['email'] = email
         request.session['phone'] = phone
@@ -177,7 +179,10 @@ def submit_contact(request):
         request.session.modified = True
 
         messages.success(request, "Thank you! You can now download brochures directly.")
-        return redirect('properties')
+
+        # ✅ Redirect based on page value
+  
+    # If not POST, just go to properties
     return redirect('properties')
 
 
@@ -220,21 +225,28 @@ def getBanner(request):
 
 
 def login(request):
-
     if request.method == 'POST':
-
-
         username = request.POST.get("username")
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         property_id = request.POST.get("property_id")
+        page = request.POST.get("page")
+
+        # ✅ Store user data in session
         request.session['name'] = username
         request.session['email'] = email
         request.session['phone'] = phone
+        request.session.modified = True
 
-        return redirect('properties')
+        # ✅ Corrected redirect logic
+        if page == 'home':
+            return redirect('/')   # ✅ must use return
+        else:
+            return redirect('properties')  # ✅ only happens if page != home
 
-    return render(request,'form.html')
+    # GET request → render form
+    return render(request, 'form.html')
+
 
 
 
