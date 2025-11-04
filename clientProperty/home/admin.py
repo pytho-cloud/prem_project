@@ -1,6 +1,6 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
-from .models import Property, Lead, Project, ContactMessage ,FeatureListing
+from .models import Property, Lead, Project, ContactMessage ,FeatureListing ,BannerModel
 
 # Property Admin
 @admin.register(Property)
@@ -66,3 +66,8 @@ class ContactMessageAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 class FeatureListingAdmin(ImportExportModelAdmin):
     list_display = ('property', 'featured_project_name', 'featured_location', 'featured_price', 'is_active')
     list_filter = ('is_active',)
+
+
+@admin.register(BannerModel)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ("title", "subtitle", "banner_image","is_active")

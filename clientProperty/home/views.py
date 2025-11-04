@@ -47,14 +47,14 @@ def home(request):
 
     properties = Property.objects.all()
 
-    featured = FeatureListing.objects.filter(is_active=True)[:6]
+    banners = BannerModel.objects.filter(is_active=True)
    
 
 
 
     context = {
         'properties': properties,
-        'featured': featured
+        'banners': banners
     }
     print("data is coming " , context)
     return render(request, "home.html", context)

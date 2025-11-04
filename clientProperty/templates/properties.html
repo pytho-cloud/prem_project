@@ -11,14 +11,14 @@
     </div>
   </div>
 
-  <h2 class="mb-4 text-center">Property Listings</h2>
+  <h2 class="mb-4 text-center" style="color: #007bff;">Property Listings</h2>
 
   <div class="row p-4">
     
     <!-- Sidebar Filter -->
     <div class="col-md-3">
       <div class="card p-3 shadow-sm sticky-top" style="top: 90px;">
-        <h5 class="mb-3">Filter Properties</h5>
+        <h5 class="mb-3" style="color: #007bff;">Filter Properties</h5>
 
         <form method="GET" id="filter-form">
           <div class="mb-3">
@@ -53,9 +53,9 @@
             <input type="number" name="max_price" class="form-control" value="{{ request.GET.max_price }}">
           </div>
 
-          <button class="btn btn-primary w-100" type="submit" style="background-color: #d4af37;">Apply Filters</button>
+          <button class="btn btn-primary w-100" type="submit" style="background-color: #00C853;">Apply Filters</button>
           <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2"
-            style="background-color: #d4af37;">Clear Filters</a>
+            style="background-color: #00C853;">Clear Filters</a>
         </form>
       </div>
     </div>
@@ -97,12 +97,12 @@
               {% if request.session.name and request.session.email and request.session.phone %}
               {% if property.brochure %}
               <a href="{% url 'download_brochure' %}?id={{ property.id }}" class="btn mt-2"
-                style="background-color: #d4af37; color: #fff;">
+                style="background-color: #00C853; color: #fff;">
                 Download Brochure
               </a>
               {% endif %}
               {% else %}
-              <button class="btn mt-2 request-brochure-btn" style="background-color: #d4af37; color: #fff;"
+              <button class="btn mt-2 request-brochure-btn" style="background-color: #00C853; color: #fff;"
                 data-property-id="{{ property.id }}">
                 Request Brochure
               </button>

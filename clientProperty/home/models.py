@@ -77,7 +77,7 @@ def __str__(self):
 
 
 
-from django.db import models
+
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
@@ -114,3 +114,17 @@ class FeatureListing(models.Model):
     def __str__(self):
         return f"{self.property.name} - Featured"
 
+
+
+
+
+
+
+class BannerModel(models.Model):
+    title = models.CharField(max_length=200, blank=True, null=True)
+    subtitle = models.CharField(max_length=300, blank=True, null=True)
+    banner_image = models.ImageField(upload_to="banner/slider/")
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title if self.title else "Banner"
