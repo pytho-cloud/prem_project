@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,11 +48,18 @@ INSTALLED_APPS = [
 JAZZMIN_SETTINGS = {
     "site_title": "NESTO Admin",
     "site_header": "NESTO Dashboard",
-    "welcome_sign": "NESTO ADMIN",
-    "show_ui_builder": True,  # enables real-time theme customizer
-    "theme": "cosmo",  # Bootstrap theme name, e.g. cosmo, cyborg, flatly, darkly, etc.
-      "theme": "darkly",              # Dark version of Bootstrap
-    "dark_mode_theme": "darkly",  
+    "welcome_sign": "Welcome to NESTO Admin",
+    "show_ui_builder": True,
+
+    # ✅ Logo images
+    "site_logo": "images/assets/logo-removebg-preview.png",        # top-left corner in the admin
+    "login_logo": "images/assets/logo-removebg-preview.png", # logo on the login screen
+    "site_logo_classes": "images/assets/logo-removebg-preview.png",         # optional: add Bootstrap classes
+    "site_icon": "images/assets/logo-removebg-preview.png",          # favicon in the browser tab
+
+    # ✅ Themes
+    "theme": "cosmo",
+    "dark_mode_theme": "darkly",
 }
 # UNFOLD = {
 #     "SITE_TITLE": "My Admin",
@@ -68,9 +76,18 @@ SESSION_COOKIE_AGE = 600
 SESSION_SAVE_EVERY_REQUEST = True
 
 UNFOLD = {
+        "SITE_TITLE": "My Admin",
+    "SITE_HEADER": "Dashboard",
+    "SITE_SYMBOL": "dashboard",
     "THEME": {
         "css": ["unfold/import_export_fix.css"],
-    }
+    },
+    "SITE_ICON": lambda request: static("images/assets/logo-removebg-preview.png"), # optional favicon
+    "LOGIN": {
+        "image": lambda request: static("images/assets/logo-removebg-preview.png"),
+        # optional settings
+        # "redirect_after": "admin:index",  # redirect after login
+    },
 }
 
 

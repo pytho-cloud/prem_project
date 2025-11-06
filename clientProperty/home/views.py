@@ -17,47 +17,20 @@ from .models import Property ,FeatureListing
 
 # 🏠 Home Page with Filter
 def home(request):
-    # query = request.GET.get('query', '')
-    # price_min = request.GET.get('price_min', '')
-    # price_max = request.GET.get('price_max', '')
-    # bhk = request.GET.get('bhk', '')
-
-    # properties = Property.objects.all().order_by('-id')
-
-    # # 🔍 Search
-    # if query:
-    #     properties = properties.filter(
-    #         Q(name__icontains=query) |
-    #         Q(location__icontains=query) |
-    #         Q(description__icontains=query)
-    #     )
-
-    # # 💰 Price Filter
-    # if price_min and price_max:
-    #     try:
-    #         min_val = int(price_min)
-    #         max_val = int(price_max)
-    #         properties = properties.filter(price__gte=min_val, price__lte=max_val)
-    #     except ValueError:
-    #         pass
-
-    # # 🏡 BHK Filter
-    # if bhk:
-    #     properties = properties.filter(bhk_type=bhk)
-
     properties = Property.objects.all()
-
     banners = BannerModel.objects.filter(is_active=True)
-   
+    featured = FeatureListing.objects.filter(is_active=True).select_related('property')
 
-
+    print("this is my properties", properties)
 
     context = {
         'properties': properties,
-        'banners': banners
+        'banners': banners,
+        'featured': featured
     }
-    print("data is coming " , context)
+    print("data is coming", context)
     return render(request, "home.html", context)
+
 
 # 📞 Lead Form
 @csrf_exempt
@@ -141,6 +114,7 @@ def properties(request):
         "properties": page_obj,
         "page_obj": page_obj,
     }
+    print(context,"this is my data ")
 
     return render(request, "properties.html", context)
 

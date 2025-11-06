@@ -12,6 +12,33 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
+<style>
+
+
+.button-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px; /* 👈 Adds visible spacing */
+}
+
+.btn-link-custom {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 600;
+ 
+  border-radius: 25px;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-link-custom:hover {
+  {% comment %} background-color: #007bff; {% endcomment %}
+  color: #007bff;
+}
+
+
+</style>
 <body>
 
   <div class="container" data-aos="zoom-in">
@@ -46,6 +73,20 @@
       <p class="register-text" data-aos="fade-up" data-aos-delay="1000">
         We’ll only use your details to provide brochures and updates.
       </p>
+
+      <!-- ✅ Added Navigation Links -->
+      
+      <div class="text-center mt-3" data-aos="fade-up" data-aos-delay="1200">
+  <div class="button-links">
+    <a href="{% url 'home' %}" class="btn-link-custom">🏠 Home</a>
+    <a href="{% url 'properties' %}" class="btn-link-custom">🏗️ Properties</a>
+  </div>
+
+
+    </div>
+
+
+
     </form>
   </div>
 

@@ -212,7 +212,7 @@
         <div class="card-body text-start">
 
           <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
-          <h5 class="fw-bold text-dark">{{ property.rea }}</h5>
+          {% comment %} <h5 class="fw-bold text-dark">{{ property.rea }}</h5> {% endcomment %}
 
 
           <p class="text-muted mb-1">{{ item.selling_status }}</p>
@@ -314,12 +314,6 @@
 
 
 
-
-
-
-
-
-
 <!-- Include Other Sections -->
 <div data-aos="fade-up">{% include 'home/feature.html' %}</div>
 <div data-aos="fade-up">{% include 'home/homeAbout.html' %}</div>
@@ -349,6 +343,9 @@
     }, showInterval);
   });
 </script>
+
+
+
 
 
 {% endblock content %}
