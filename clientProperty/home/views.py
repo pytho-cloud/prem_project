@@ -149,11 +149,22 @@ def properties(request):
 def single_product_view(request):
     id = request.GET.get('id')
     if not id:
-        return redirect('properties')  # If id is missing → redirect
+        return redirect('properties')
 
     property_obj = get_object_or_404(Property, id=id)
 
-    return render(request, 'single_product.html', {'property': property_obj})
+    # 👇 Fetch all gallery images for this property
+    gallery_images = property_obj.images.all()
+
+    return render(
+        request,
+        'single_product.html',
+        {
+            'property': property_obj,
+            'gallery_images': gallery_images
+        }
+    )
+
 
 
 

@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
+
 <body>
 
   <div class="container" data-aos="zoom-in">
@@ -46,6 +48,20 @@
       <p class="register-text" data-aos="fade-up" data-aos-delay="1000">
         We’ll only use your details to provide brochures and updates.
       </p>
+
+      <div class="nav-links" data-aos="fade-up" data-aos-delay="1200"
+        style="display: flex; gap: 15px; width: 100%;  justify-content: space-between; ">
+
+        <a href="{% url 'home' %}" style=" color: #00C853;  border-radius: 5px; 
+            text-decoration: none;  transition: background-color 0.3s; font-weight: 600;">
+          ← Home
+        </a>
+
+        <a href="{% url 'properties' %}" style=" color: #00C853;  border-radius: 5px; 
+            text-decoration: none; font-weight: 600; transition: background-color 0.3s;">
+          ← Properties 
+        </a>
+      </div>
     </form>
   </div>
 
@@ -56,4 +72,5 @@
   <!-- Custom JS -->
   <script src="{% static 'js/login.js' %}"></script>
 </body>
+
 </html>

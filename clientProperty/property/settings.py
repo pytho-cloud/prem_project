@@ -52,6 +52,9 @@ JAZZMIN_SETTINGS = {
     "theme": "cosmo",  # Bootstrap theme name, e.g. cosmo, cyborg, flatly, darkly, etc.
       "theme": "darkly",              # Dark version of Bootstrap
     "dark_mode_theme": "darkly",  
+        "site_logo": "images/assets/logo-removebg-preview.png",       # Path relative to static directory
+    # "site_logo_classes": "img-circle",          # Optional: makes it rounded
+    # "site_icon": "images/nesto-logo.png",      
 }
 # UNFOLD = {
 #     "SITE_TITLE": "My Admin",
