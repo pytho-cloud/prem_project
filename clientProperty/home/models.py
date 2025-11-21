@@ -39,6 +39,19 @@ class Property(models.Model):
         return f"{self.name} - {self.location}"
 
 
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(
+        Property,
+        on_delete=models.CASCADE,
+        related_name='images'  # Important: allows property.images.all()
+    )
+    image = models.ImageField(upload_to='property_gallery/')
+
+    def __str__(self):
+        return f"{self.property.name} - Image"
+
+
 class Lead(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=15)

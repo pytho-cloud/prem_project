@@ -192,6 +192,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // Select all request brochure buttons
+  const requestButtons = document.querySelectorAll(".request-brochure-btn");
+
+  // This flag controls auto-redirect (only for those who need to login)
+  let shouldRedirect = requestButtons.length > 0;
+
+  if (shouldRedirect) {
+    // Redirect to login after 10 seconds if only "Request Brochure" buttons exist
+    setTimeout(function() {
+      window.location.href = "{% url 'login' %}?page=home";
+    }, 30000); // 10 seconds
+  }
+});
+</script>
+
 
 <!-- 🔹 Styles -->
 <style>

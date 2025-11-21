@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,33 +13,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
-<style>
 
-
-.button-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px; /* 👈 Adds visible spacing */
-}
-
-.btn-link-custom {
-  display: inline-block;
-  text-decoration: none;
-  font-weight: 600;
- 
-  border-radius: 25px;
-  padding: 8px 20px;
-  transition: all 0.3s ease;
-}
-
-.btn-link-custom:hover {
-  {% comment %} background-color: #007bff; {% endcomment %}
-  color: #007bff;
-}
-
-
-</style>
 <body>
 
   <div class="container" data-aos="zoom-in">
@@ -74,19 +49,19 @@
         We’ll only use your details to provide brochures and updates.
       </p>
 
-      <!-- ✅ Added Navigation Links -->
-      
-      <div class="text-center mt-3" data-aos="fade-up" data-aos-delay="1200">
-  <div class="button-links">
-    <a href="{% url 'home' %}" class="btn-link-custom">🏠 Home</a>
-    <a href="{% url 'properties' %}" class="btn-link-custom">🏗️ Properties</a>
-  </div>
+      <div class="nav-links" data-aos="fade-up" data-aos-delay="1200"
+        style="display: flex; gap: 15px; width: 100%;  justify-content: space-between; ">
 
+        <a href="{% url 'home' %}" style=" color: #00C853;  border-radius: 5px; 
+            text-decoration: none;  transition: background-color 0.3s; font-weight: 600;">
+          ← Home
+        </a>
 
-    </div>
-
-
-
+        <a href="{% url 'properties' %}" style=" color: #00C853;  border-radius: 5px; 
+            text-decoration: none; font-weight: 600; transition: background-color 0.3s;">
+          ← Properties 
+        </a>
+      </div>
     </form>
   </div>
 
@@ -97,4 +72,5 @@
   <!-- Custom JS -->
   <script src="{% static 'js/login.js' %}"></script>
 </body>
+
 </html>
