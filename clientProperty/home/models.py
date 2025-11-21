@@ -142,3 +142,15 @@ class BannerModel(models.Model):
 
     def __str__(self):
         return self.title if self.title else "Banner"
+
+
+class Slogan(models.Model):
+    text = models.TextField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=False)
+    
+    
+class Review(models.Model):
+    name = models.CharField(max_length=100)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

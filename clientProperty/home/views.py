@@ -20,13 +20,18 @@ def home(request):
     properties = Property.objects.all()
     banners = BannerModel.objects.filter(is_active=True)
     featured = FeatureListing.objects.filter(is_active=True).select_related('property')
+    active_slogan = Slogan.objects.filter(is_active=True).first()
+    slogan = active_slogan.text if active_slogan else None
+    print("this is my slogen" , slogan)
+
 
     print("this is my properties", properties)
 
     context = {
         'properties': properties,
         'banners': banners,
-        'featured': featured
+        'featured': featured ,
+        'slogan':active_slogan
     }
     print("data is coming", context)
     return render(request, "home.html", context)
