@@ -13,7 +13,7 @@ from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, HttpResponseBadRequest
 from .utils import *
-from .models import Property ,FeatureListing
+from .models import Property ,FeatureListing, Slogan
 
 # 🏠 Home Page with Filter
 def home(request):
@@ -295,3 +295,6 @@ def download_brochure(request):
         as_attachment=True,
         filename=prop
     )
+    
+    
+    

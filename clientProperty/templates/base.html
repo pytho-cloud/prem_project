@@ -42,7 +42,7 @@
 
 <nav class="site-nav">
   <div class="container">
-    <div class="menu-bg-wrap">
+    <div class="menu-bg-wrap" style="background : #3aa8ff;">
       <div class="site-navigation d-flex align-items-center justify-content-between">
 
         <!-- ✅ Logo -->
@@ -54,7 +54,7 @@
             Nesto Property
           </span>
 
-          <span style="font-size: 9px; font-weight: 300; color: #cdd4cf;">
+          <span style="font-size: 15px; font-weight: 600; color: #cdd4cf;">
             Your Trusted Real Estate Partner
           </span>
         </a>
@@ -96,7 +96,7 @@
 
                 <!-- Company Info -->
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-uppercase fw-bold mb-3 text-white">DreamHomes Realty</h5>
+                    <h5 class="text-uppercase fw-bold mb-3 text-white">Nesto Properties</h5> <!--Changed name-->
                     <p>Turning your real estate dreams into reality. Explore premium listings, verified agents, and
                         hassle-free property deals across India.</p>
                     <div class="d-flex mt-3 gap-2">
@@ -115,20 +115,19 @@
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Buy Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Sell Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Rent Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Find Agents</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>About Us</a></li>
+                        <li><a href="{% url 'home' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Home</a></li>
+                        <li><a href="{% url 'properties' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Properties</a></li>
+                        <li><a href="{% url 'about' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>About</a></li>
+                        <li><a href="{% url 'contact' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Contact Us</a></li>
+
                     </ul>
                 </div>
 
-                <!-- Resources -->
+                <!-- Resources
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Resources</h5>
                     <ul class="list-unstyled">
@@ -143,9 +142,9 @@
                         <li><a href="#" class="footer-link text-white text-decoration-none"><i
                                     class="bi bi-chevron-right me-2"></i>Contact Us</a></li>
                     </ul>
-                </div>
+                </div> -->
 
-                <!-- Google Map -->
+                <!-- Google Map
                 <div class="col-lg-5 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Visit Our Office</h5>
                     <div class="ratio ratio-16x9 rounded-4 shadow-lg">
@@ -156,7 +155,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <hr class="my-4 text-white">
 

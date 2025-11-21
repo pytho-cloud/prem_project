@@ -2,7 +2,7 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from .models import (
     Property, Lead, Project, ContactMessage,
-    FeatureListing, BannerModel, PropertyImage
+    FeatureListing, BannerModel, PropertyImage, Slogan
 )
 
 # -------------------------
@@ -104,3 +104,14 @@ class FeatureListingAdmin(ImportExportModelAdmin):
 @admin.register(BannerModel)
 class BannerAdmin(admin.ModelAdmin):
     list_display = ("title", "subtitle", "banner_image", "is_active")
+
+
+
+#------------
+# SLOGAN ADMIN
+#------------
+
+
+admin.site.register(Slogan)
+class SloganAdmin(admin.ModelAdmin):
+    list_display = ("text", "created_at")
