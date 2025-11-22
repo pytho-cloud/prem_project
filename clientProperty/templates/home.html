@@ -212,7 +212,7 @@
         <div class="card-body text-start">
 
           <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
-          <h5 class="fw-bold text-dark">{{ property.rea }}</h5>
+          {% comment %} <h5 class="fw-bold text-dark">{{ property.rea }}</h5> {% endcomment %}
 
 
           <p class="text-muted mb-1">{{ item.selling_status }}</p>
@@ -245,12 +245,6 @@
 
   </div>
 </div>
-
-
-
-
-
-
 
 
 
@@ -301,6 +295,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }, showInterval);
   });
 </script>
+
+
+
 
 
 {% endblock content %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from django.templatetags.static import static
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,9 +72,18 @@ SESSION_COOKIE_AGE = 600
 SESSION_SAVE_EVERY_REQUEST = True
 
 UNFOLD = {
+        "SITE_TITLE": "My Admin",
+    "SITE_HEADER": "Dashboard",
+    "SITE_SYMBOL": "dashboard",
     "THEME": {
         "css": ["unfold/import_export_fix.css"],
-    }
+    },
+    "SITE_ICON": lambda request: static("images/assets/logo-removebg-preview.png"), # optional favicon
+    "LOGIN": {
+        "image": lambda request: static("images/assets/logo-removebg-preview.png"),
+        # optional settings
+        # "redirect_after": "admin:index",  # redirect after login
+    },
 }
 
 

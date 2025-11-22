@@ -26,17 +26,25 @@
     <link rel="stylesheet" href="{% static 'css/tiny-slider.css' %}" />
     <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    
 </head>
 
 <body>
     <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-            <div class="site-mobile-menu-close">
-                <span class="icofont-close js-menu-toggle"></span>
-            </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
+    <div class="site-mobile-menu-header d-flex justify-content-end p-3 border-bottom">
+      <div class="site-mobile-menu-close">
+        <span class="icofont-close js-menu-toggle fs-4"></span>
+      </div>
     </div>
+    <div class="site-mobile-menu-body d-flex flex-column gap-3 p-3">
+      <a href="{% url 'home' %}" class="text-primary text-decoration-none">Home</a>
+      <a href="{% url 'properties' %}" class="text-primary text-decoration-none">Properties</a>
+      <a href="{% url 'properties' %}" class="text-primary text-decoration-none">Services</a>
+      <a href="#about" class="text-primary text-decoration-none">About</a>
+      <a href="#contact" class="text-primary text-decoration-none">Contact Us</a>
+    </div>
+  </div>
 
     <!-- Navbar -->
 
@@ -55,7 +63,7 @@
             Nesto Property
           </span>
 
-          <span style="font-size: 15px; font-weight: 600; color: #cdd4cf;">
+          <span style="font-size: 9px; font-weight: 300; color: #cdd4cf;">
             Your Trusted Real Estate Partner
           </span>
         </a>
@@ -69,12 +77,12 @@
           <li><a href="#contact" class="text-white text-decoration-none">Contact Us</a></li>
         </ul>
 
-        <!-- ✅ Burger Icon (Mobile Only) -->
-        <a href="#"
-           class="burger light site-menu-toggle js-menu-toggle d-inline-block d-lg-none ms-3"
-           style="margin-left: 15px;">
-          <span></span>
-        </a>
+          <!-- ✅ Burger Icon (Mobile Only) -->
+          <a href="#"
+             class="burger light site-menu-toggle js-menu-toggle d-inline-block d-lg-none ms-3"
+             style="margin-left: 15px;">
+            <span></span>
+          </a>
 
       </div>
     </div>
@@ -252,6 +260,25 @@
 
 
     <!-- JavaScript -->
+     <script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  function goToLoginIfNeeded() {
+    // Check if any "Request Brochure" buttons are present
+    const requestBtns = document.querySelectorAll('.request-brochure-btn');
+    
+    // ✅ If any found, it means the user is NOT logged in
+    if (requestBtns.length > 0) {
+      console.log('Redirecting to login page...');
+      window.location.href = "{% url 'login' %}";
+    }
+  }
+
+  // ⏱️ Run every 10 seconds (10,000 ms)
+  setInterval(goToLoginIfNeeded, 10 * 1000);
+
+});
+</script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/tiny-slider.js' %}"></script>
     <script src="{% static 'js/aos.js' %}"></script>
