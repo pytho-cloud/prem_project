@@ -40,9 +40,10 @@
 
     <!-- Navbar -->
 
+
 <nav class="site-nav">
   <div class="container">
-    <div class="menu-bg-wrap">
+    <div class="menu-bg-wrap" style="background : #3aa8ff;">
       <div class="site-navigation d-flex align-items-center justify-content-between">
 
         <!-- ✅ Logo -->
@@ -54,7 +55,7 @@
             Nesto Property
           </span>
 
-          <span style="font-size: 9px; font-weight: 300; color: #cdd4cf;">
+          <span style="font-size: 15px; font-weight: 600; color: #cdd4cf;">
             Your Trusted Real Estate Partner
           </span>
         </a>
@@ -63,7 +64,7 @@
         <ul class="js-clone-nav d-none d-lg-flex align-items-center site-menu m-0 gap-4">
           <li class="active"><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
           <li><a href="{% url 'properties' %}" class="text-white text-decoration-none">Properties</a></li>
-          <li><a href="{% url 'properties' %}" class="text-white text-decoration-none">Services</a></li>
+          <!-- <li><a href="{% url 'properties' %}" class="text-white text-decoration-none">Services</a></li> -->
           <li><a href="#about" class="text-white text-decoration-none">About</a></li>
           <li><a href="#contact" class="text-white text-decoration-none">Contact Us</a></li>
         </ul>
@@ -81,7 +82,6 @@
 </nav>
 
 
-
     {% block content %}{% endblock content %}
 
 
@@ -96,7 +96,7 @@
 
                 <!-- Company Info -->
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-uppercase fw-bold mb-3 text-white">DreamHomes Realty</h5>
+                    <h5 class="text-uppercase fw-bold mb-3 text-white">Nesto Properties</h5> <!--Changed name-->
                     <p>Turning your real estate dreams into reality. Explore premium listings, verified agents, and
                         hassle-free property deals across India.</p>
                     <div class="d-flex mt-3 gap-2">
@@ -115,20 +115,59 @@
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Buy Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Sell Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Rent Property</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>Find Agents</a></li>
-                        <li><a href="#" class="footer-link text-white text-decoration-none"><i
-                                    class="bi bi-chevron-right me-2"></i>About Us</a></li>
+                        <li><a href="{% url 'home' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Home</a></li>
+                        <li><a href="{% url 'properties' %}" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Properties</a></li>
+                        <li><a href="#about" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>About</a></li>
+                        <li><a href="#contact" class="footer-link text-white text-decoration-none"><i
+                                    class="bi bi-chevron-right me-2"></i>Contact Us</a></li>
+                    
+
                     </ul>
                 </div>
 
-                <!-- Resources -->
+                
+<div class="col-lg-2 col-md-6">
+    <h5 class="text-uppercase fw-bold mb-3 text-white">Address</h5>
+    <ul class="list-unstyled">
+        <li class="text-white text-decoration-none">
+            <i class="fa-solid fa-house"></i>
+            Mumbai, Maharashtra, 40007
+        </li>
+
+        <i class="fa-solid fa-phone"></i>
+            +91 9706171000
+        </li>
+        <li class="text-white text-decoration-none">
+            <i class="fa-solid fa-envelope-open"></i>
+            sales@nestoproperty.in
+        </li>
+        <li class="text-white text-decoration-none">
+            <i class="fa-solid fa-calendar-check"></i>
+            Appointment only
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-2 col-md-6">
+    <h5 class="text-uppercase fw-bold mb-3 text-white">Connect With Us</h5>
+    <ul class="list-unstyled">
+        <li>
+            <a href="#" class="footer-link text-white text-decoration-none">
+                <i class="fa-brands fa-linkedin me-2"></i>LinkedIn
+            </a>
+        </li>
+        <li>
+            <a href="#" class="footer-link text-white text-decoration-none">
+                <i class="fa-brands fa-instagram me-2"></i>Instagram
+            </a>
+        </li>
+    </ul>
+</div>
+
+                <!-- Resources
                 <div class="col-lg-2 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Resources</h5>
                     <ul class="list-unstyled">
@@ -143,9 +182,9 @@
                         <li><a href="#" class="footer-link text-white text-decoration-none"><i
                                     class="bi bi-chevron-right me-2"></i>Contact Us</a></li>
                     </ul>
-                </div>
+                </div> -->
 
-                <!-- Google Map -->
+                <!-- Google Map
                 <div class="col-lg-5 col-md-6">
                     <h5 class="text-uppercase fw-bold mb-3 text-white">Visit Our Office</h5>
                     <div class="ratio ratio-16x9 rounded-4 shadow-lg">
@@ -156,7 +195,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <hr class="my-4 text-white">
 
@@ -188,6 +227,26 @@
             color: #ffffff !important;
             transition: 0.3s;
         }
+        .back-to-top {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #6EC9FF;  /* light blue */
+    color: white;
+    font-size: 20px;
+    padding: 12px 14px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    display: none;
+    z-index: 999;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.back-to-top:hover {
+    background-color: #5ABAF0; /* slightly darker blue */
+    transform: translateY(-3px);
+}
     </style>
 
 
@@ -199,6 +258,23 @@
     <script src="{% static 'js/navbar.js' %}"></script>
     <script src="{% static 'js/counter.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+
+    <a href="#" id="backToTop" class="back-to-top">
+    <i class="bi bi-arrow-up"></i>
+    </a>
+
+
+    <script>
+    const btn = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    });
+</script>
 
 </body>
 
