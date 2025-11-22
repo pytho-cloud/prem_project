@@ -16,49 +16,73 @@
   <div class="row p-4">
     
     <!-- Sidebar Filter -->
-    <div class="col-md-3">
-      <div class="card p-3 shadow-sm sticky-top" style="top: 90px;">
-        <h5 class="mb-3" style="color: #007bff;">Filter Properties</h5>
+  <div class="col-md-3">
+  <div class="card p-3 shadow-sm sticky-top" style="top: 90px;">
+    <h5 class="mb-3" style="color: #007bff;">Filter Properties</h5>
 
-        <form method="GET" id="filter-form">
-          <div class="mb-3">
-            <label class="form-label">Search</label>
-            <input type="text" name="q" class="form-control" placeholder="Location or Name" value="{{ request.GET.q }}">
-          </div>
+    <form method="GET" id="filter-form">
 
-          <div class="mb-3">
-            <label class="form-label">Enter Sqft</label>
-            <input type="text" name="sq_ft" class="form-control" placeholder="Enter your Sqft"
-              value="{{ request.GET.sq_ft }}">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">BHK</label>
-            <select name="bhk" class="form-select">
-              <option value="">Any</option>
-              <option value="1" {% if request.GET.bhk == '1' %}selected{% endif %}>1 BHK</option>
-              <option value="2" {% if request.GET.bhk == '2' %}selected{% endif %}>2 BHK</option>
-              <option value="3" {% if request.GET.bhk == '3' %}selected{% endif %}>3 BHK</option>
-              <option value="4" {% if request.GET.bhk == '4' %}selected{% endif %}>4+ BHK</option>
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Min Price (Lakh)</label>
-            <input type="number" name="min_price" class="form-control" value="{{ request.GET.min_price }}">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Max Price (Lakh)</label>
-            <input type="number" name="max_price" class="form-control" value="{{ request.GET.max_price }}">
-          </div>
-
-          <button class="btn btn-primary w-100" type="submit" style="background-color: #00C853;">Apply Filters</button>
-          <a href="{% url 'properties' %}" class="btn btn-secondary w-100 mt-2"
-            style="background-color: #00C853;">Clear Filters</a>
-        </form>
+      <!-- Search -->
+      <div class="mb-3">
+        <label class="form-label">Search</label>
+        <input type="text" name="q" class="form-control" placeholder="Location or Name"
+               value="{{ request.GET.q }}">
       </div>
-    </div>
+
+      <!-- BHK Dropdown -->
+      <div class="mb-3">
+        <label class="form-label">BHK</label>
+        <select name="bhk" class="form-select">
+          <option value="">Any</option>
+          <option value="1" {% if request.GET.bhk == '1' %}selected{% endif %}>1 BHK</option>
+          <option value="2" {% if request.GET.bhk == '2' %}selected{% endif %}>2 BHK</option>
+          <option value="3" {% if request.GET.bhk == '3' %}selected{% endif %}>3 BHK</option>
+          <option value="4" {% if request.GET.bhk == '4' %}selected{% endif %}>4+ BHK</option>
+        </select>
+      </div>
+
+      <!-- PRICE RANGE SLIDER -->
+      <div class="mb-3">
+        <label class="form-label">Price Range (Lakh)</label>
+
+        <!-- Min Price -->
+        <input type="range" 
+               name="min_price" 
+               id="minPrice" 
+               class="form-range"
+               min="0" max="300" step="5"
+               value="{{ request.GET.min_price|default:0 }}"
+               oninput="document.getElementById('minPriceValue').innerText = this.value">
+
+        <small>Min: <span id="minPriceValue">{{ request.GET.min_price|default:0 }}</span> Lakh</small>
+
+        <!-- Max Price -->
+        <input type="range"
+               name="max_price"
+               id="maxPrice"
+               class="form-range mt-2"
+               min="0" max="300" step="5"
+               value="{{ request.GET.max_price|default:300 }}"
+               oninput="document.getElementById('maxPriceValue').innerText = this.value">
+
+        <small>Max: <span id="maxPriceValue">{{ request.GET.max_price|default:300 }}</span> Lakh</small>
+      </div>
+
+      <!-- Buttons -->
+      <button class="btn btn-primary w-100" type="submit" style="background-color: #00C853;">
+        Apply Filters
+      </button>
+
+      <a href="{% url 'properties' %}" 
+         class="btn btn-secondary w-100 mt-2" 
+         style="background-color: #00C853;">
+        Clear Filters
+      </a>
+
+    </form>
+  </div>
+</div>
+
 
     <!-- Property Listings -->
     <div class="col-md-9">
@@ -87,7 +111,13 @@
 
               <p><strong>Location:</strong> {{ property.location }}</p>
               <p><strong>BHK:</strong> {{ property.bhk_type }}</p>
-              <p><strong>Sq Ft:</strong> {{ property.sq_ft }} Sq Ft</p>
+             <p>
+                <strong>Price:</strong>
+              ₹{{ property.price }} Lakhs (₹{% widthratio property.price 100 1 %} Cr)
+
+                <!-- (₹{% widthratio property.price 10000000 1 %} Cr) -->
+              </p>
+              <!-- <p><strong>Sq Ft:</strong> {{ property.sq_ft }} Sq Ft</p> -->
 
               <a href="{% url 'single_product' %}?id={{ property.id }}"
                 class="btn btn-outline-primary btn-sm mt-2 w-100 view-property-btn">

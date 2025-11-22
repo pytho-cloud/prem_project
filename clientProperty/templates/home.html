@@ -102,7 +102,34 @@
   }
 }
 
-  
+
+{% comment %} 
+  /* Circular Carousel Buttons */
+  #featuredCarousel .carousel-control-prev,
+  #featuredCarousel .carousel-control-next {
+    width: 55px;
+    height: 55px;
+    top: 45%;
+    background-color: #66c2ff;  /* Light Blue */
+    border-radius: 50%;
+    opacity: 1;
+    transition: 0.3s;
+  }
+
+  #featuredCarousel .carousel-control-prev-icon,
+  #featuredCarousel .carousel-control-next-icon {
+    filter: invert(1); /* Makes arrow white */
+    width: 24px;
+    height: 24px;
+  }
+
+  #featuredCarousel .carousel-control-prev:hover,
+  #featuredCarousel .carousel-control-next:hover {
+    background-color: #4da6ff; /* Darker Blue on hover */
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(77, 166, 255, 0.8);
+  }
+   {% endcomment %}
 </style>
 
 <!-- AOS JS -->
@@ -111,7 +138,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     AOS.init({
-      duration: 1000,
+      duration: 300,
       once: true,
       easing: "ease-in-out",
     });
@@ -121,46 +148,37 @@
 <!-- Hero Section -->
 <div class="hero">
 
-  <!-- ✅ Slider Images + Text from DB -->
-  <div class="hero-slide">
-    {% for b in banners %}
-    <div class="img overlay" style="background-image: url('{{ b.banner_image.url }}');">
+<!-- ✅ Slider Images + Text from DB -->
+<div class="hero-slide">
+  {% for b in banners %}
+  <div class="img overlay" style="background-image: url('{{ b.banner_image.url }}');">
 
-      {% with prop=b.property %}
-      <div class="banner-content text-end" data-aos="fade-up">
-        <h1 class="heading">{{ b.title }}</h1>
-        <h5 class="sub-text" data-aos="fade-up" data-aos-delay="200">
-          {{ b.subtitle }}
-        </h5>
+    {% with prop=b.property %}
+    <div class="banner-content text-end" data-aos="fade-up">
+      <h1 class="heading">{{ b.title }}</h1>
+      <h5 class="sub-text" data-aos="fade-up" data-aos-delay="200">
+        {{ b.subtitle }}
+      </h5>
 
-        <!-- ✅ Brochure Logic -->
-        {% if prop.brochure %}
-          {% if request.session.name and request.session.email and request.session.phone %}
-            <!-- ✅ Show Download Button -->
-            <a href="{% url 'download_brochure' %}?id={{ prop.id }}" 
-               class="btn mt-3"
-               style="background-color: #00C853; color: #fff; border-raidus :2px solid #00C853;">
-              <i class="bi bi-download"></i> Download Brochure
-            </a>
-          {% else %}
-            <!-- ✅ Show Request Brochure Button -->
-         <a 
-          href="{% url 'login' %}?page=home&id={{ prop.id }}" 
-          class="btn mt-3 request-brochure-btn" 
-          style="background-color: #00C853; color: #fff; border: 2px solid #00C853; border-radius: 5px; text-decoration: none;"
-          data-property-id="{{ prop.id }}">
-          Request Brochure
-        </a>
-
-          {% endif %}
+      <!-- ✅ Brochure Logic -->
+      {% if prop.brochure %}
+        {% if request.session.name and request.session.email and request.session.phone %}
+          <!-- ✅ Show Download Button -->
+          <a href="{% url 'download_brochure' %}?id={{ prop.id }}" 
+             class="btn mt-3"
+             style="background-color: #00C853; color: #fff; border-radius: 2px solid #00C853;">
+            <i class="bi bi-download"></i> Download Brochure
+          </a>
         {% endif %}
-
-      </div>
-      {% endwith %}
+      {% endif %}
 
     </div>
-    {% endfor %}
+    {% endwith %}
+
   </div>
+  {% endfor %}
+</div>
+
 
   <!-- ✅ Your Old Static Content -->
   <div class="container">
@@ -191,57 +209,74 @@
   <h2 class="text-center mb-5 font-bold" data-aos="fade-up" style="font:bold; color: #007bff;" >Featured Listings</h2>
   <div class="row g-4"> {% endcomment %}
 
-    {% for feature in featured %}
-    {% with item=feature.property %}
-    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
 
-      <div class="card shadow-3" style="border-radius:14px;">
 
-        <!-- Image Section -->
-        <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-          {% if item.image %}
-          <img src="{{ item.image.url }}" class="img-fluid"
-            style="height:230px; width:100%; object-fit:cover; border-top-left-radius:14px; border-top-right-radius:14px;">
-          {% else %}
-          <img src="{% static 'images/default.jpg' %}" class="img-fluid"
-            style="height:230px; width:100%; object-fit:cover; border-top-left-radius:14px; border-top-right-radius:14px;">
-          {% endif %}
+<div class="container py-5">
+  <h2 class="text-center mb-5" style="font-weight: bold; color: #007bff;">
+    Featured Listings
+  </h2>
+
+  <!-- Auto slider -->
+  <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+
+    <div class="carousel-inner">
+
+      {% for feature in featured %}
+      {% with item=feature.property %}
+
+      {% if forloop.first %}
+      <div class="carousel-item active">
+        <div class="row g-4">
+      {% elif forloop.counter0|divisibleby:3 %}
         </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row g-4">
+      {% endif %}
 
-        <!-- Card Body -->
-        <div class="card-body text-start">
+      <!-- CARD -->
+      <div class="col-md-4 col-sm-6">
+        <div class="card shadow-3" style="border-radius:14px;">
 
-          <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
-          {% comment %} <h5 class="fw-bold text-dark">{{ property.rea }}</h5> {% endcomment %}
+          <div class="bg-image hover-overlay ripple">
+            {% if item.image %}
+            <img src="{{ item.image.url }}" class="img-fluid"
+              style="height:230px; width:100%; object-fit:cover; 
+                     border-top-left-radius:14px; border-top-right-radius:14px;">
+            {% else %}
+            <img src="{% static 'images/default.jpg' %}" class="img-fluid"
+              style="height:230px; width:100%; object-fit:cover; 
+                     border-top-left-radius:14px; border-top-right-radius:14px;">
+            {% endif %}
+          </div>
 
+          <div class="card-body text-start">
+            <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
+            <p class="text-muted mb-1">{{ item.selling_status }}</p>
 
-          <p class="text-muted mb-1">{{ item.selling_status }}</p>
+            {% if feature.featured_location %}
+            <p class="mb-1">
+              <i class="fas fa-map-marker-alt text-danger me-1"></i> {{ feature.featured_location }}
+            </p>
+            {% endif %}
 
-          {% if feature.featured_location %}
-          <p class="mb-1">
-            <i class="fas fa-map-marker-alt text-danger me-1"></i> {{ feature.featured_location }}
-          </p>
-          {% endif %}
-
-          {% if feature.featured_price %}
-          <p class="fw-bold text-success">₹ {{ feature.featured_price }}</p>
-          {% endif %}
-
-          <!-- <div class="d-grid gap-2 mt-3">
-            <a href="{% url 'single_product' %}?id={{ item.id }}" class="btn btn-dark btn-sm"
-              style="background-color:#2C2C2C;">
-              <i class="fas fa-eye me-1"></i> View Details
-            </a>
-          </div> -->
+            {% if feature.featured_price %}
+            <p class="fw-bold text-success">₹ {{ feature.featured_price }}</p>
+            {% endif %}
+          </div>
 
         </div>
-
-
       </div>
 
+      {% if forloop.last %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% endwith %}
+      {% endfor %}
+
     </div>
-    {% endwith %}
-    {% endfor %}
 
   </div>
 </div>
@@ -255,22 +290,36 @@
 <div data-aos="fade-up">{% include 'about.html' %}</div>
 <div data-aos="fade-up">{% include 'contact.html' %}</div>
 
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // Select all request brochure buttons
-  const requestButtons = document.querySelectorAll(".request-brochure-btn");
+document.addEventListener("DOMContentLoaded", function () {
 
-  // This flag controls auto-redirect (only for those who need to login)
-  let shouldRedirect = requestButtons.length > 0;
+    // Get all brochure buttons
+    const requestButtons = document.querySelectorAll(".request-brochure-btn");
 
-  if (shouldRedirect) {
-    // Redirect to login after 10 seconds if only "Request Brochure" buttons exist
-    setTimeout(function() {
-      window.location.href = "{% url 'login' %}?page=home";
-    }, 30000); // 10 seconds
-  }
+    // ========== CLICK EVENT ==========
+    requestButtons.forEach(button => {
+        button.addEventListener("click", function () {
+
+            const propertyId = this.getAttribute("data-property-id");
+
+            // Redirect to login with property ID
+            window.location.href = "{% url 'login' %}?page=home&id=" + propertyId;
+        });
+    });
+
+    // ========== AUTO REDIRECT (OPTIONAL) ==========
+    if (requestButtons.length > 0) {
+        setTimeout(function () {
+            window.location.href = "{% url 'login' %}?page=home";
+        }, 30000); // 30 seconds
+    }
+
 });
+
 </script>
+
+
 
 
 <script>

@@ -149,8 +149,16 @@ class Slogan(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False)
     
+    def __str__(self):
+        return self.text
+    
     
 class Review(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='review_images/', blank=True, null=True)
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"Review by {self.name}"

@@ -77,28 +77,25 @@
       </div>
     </div>
 
-    <!-- ✅ Counters Section -->
-    <div class="row text-center mt-5 gy-4 justify-content-center">
-      <div class="col-6 col-md-3" data-aos="zoom-in">
-        <h2 class="text-primary mb-0"><span class="countup">1</span>+</h2>
-        <p class="text-black-50">Year of Experience</p>
-      </div>
+<!-- Counter Section -->
+<div class="row text-center mt-5 gy-4 justify-content-center">
 
-      <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
-        <h2 class="text-primary mb-0"><span class="countup">25</span>+</h2>
-        <p class="text-black-50">Properties Sold</p>
-      </div>
+  <div class="col-6 col-md-3" data-aos="zoom-in">
+    <h2 class="text-primary mb-0"><span class="countup">1</span>+</h2>
+    <p class="text-black-50">Year of Experience</p>
+  </div>
 
-      <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
-        <h2 class="text-primary mb-0"><span class="countup">10</span>+</h2>
-        <p class="text-black-50">Expert teams</p>
-      </div>
+  <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
+    <h2 class="text-primary mb-0"><span class="countup">25</span>+</h2>
+    <p class="text-black-50">Properties Sold</p>
+  </div>
 
-      <!-- <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="450">
-        <h2 class="text-primary mb-0"><span class="countup">7191</span>+</h2>
-        <p class="text-black-50">Experienced Agents</p>
-      </div>-->
-    </div> 
+  <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
+    <h2 class="text-primary mb-0"><span class="countup">10</span>+</h2>
+    <p class="text-black-50">Expert teams</p>
+  </div>
+
+</div>
   </div>
 </section>
 
@@ -117,9 +114,44 @@ document.addEventListener("DOMContentLoaded", function () {
       // Redirect after a short delay so loader is visible
       setTimeout(() => {
         window.location.href = loginUrl;
-      }, 300);
+      }, 3000);
     });
   });
 });
 </script>
 
+<!-- AOS JS (make sure this exists in your project) -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+<!-- CountUp -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.7/countUp.min.js"></script>
+
+<script>
+  // Initialize AOS
+  AOS.init();
+
+  // Function to start CountUp animations
+  function startCountUps(container) {
+    const counters = container.querySelectorAll(".countup");
+
+    counters.forEach(counter => {
+      const endValue = parseInt(counter.textContent.trim());
+
+      const count = new CountUp(counter, endValue, {
+        duration: 2,
+        separator: ","
+      });
+
+      if (!count.error) {
+        count.start();
+      }
+    });
+  }
+
+  // Run CountUp when each AOS element scrolls into view
+  document.addEventListener("aos:in", function (e) {
+    if (e.detail && e.detail.querySelector(".countup")) {
+      startCountUps(e.detail);
+    }
+  });
+</script>

@@ -13,7 +13,7 @@ from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, HttpResponseBadRequest
 from .utils import *
-from .models import Property ,FeatureListing
+from .models import Property ,FeatureListing, Review
 
 # 🏠 Home Page with Filter
 def home(request):
@@ -22,6 +22,8 @@ def home(request):
     featured = FeatureListing.objects.filter(is_active=True).select_related('property')
     active_slogan = Slogan.objects.filter(is_active=True).first()
     slogan = active_slogan.text if active_slogan else None
+    reviews = Review.objects.all()
+    print("this is my reviews" , reviews)
     print("this is my slogen" , slogan)
 
 
@@ -31,7 +33,8 @@ def home(request):
         'properties': properties,
         'banners': banners,
         'featured': featured ,
-        'slogan':active_slogan
+        'slogan':active_slogan,
+        'reviews':reviews
     }
     print("data is coming", context)
     return render(request, "home.html", context)
