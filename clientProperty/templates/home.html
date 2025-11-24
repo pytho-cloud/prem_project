@@ -131,6 +131,8 @@
   }
    {% endcomment %}
 </style>
+<script type="module" src="{% static 'js/countUp.min.js' %}"></script>
+
 
 <!-- AOS JS -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -145,45 +147,62 @@
   });
 </script>
 
+
 <!-- Hero Section -->
 <div class="hero">
 
-<!-- ✅ Slider Images + Text from DB -->
-<div class="hero-slide">
-  {% for b in banners %}
-  <div class="img overlay" style="background-image: url('{{ b.banner_image.url }}');">
+  <!-- Slider Images + Text from DB -->
+  <div class="hero-slide">
+    {% for b in banners %}
+    <div class="img overlay" style="background-image: url('{{ b.banner_image.url }}');">
 
-    {% with prop=b.property %}
-    <div class="banner-content text-end" data-aos="fade-up">
-      <h1 class="heading">{{ b.title }}</h1>
-      <h5 class="sub-text" data-aos="fade-up" data-aos-delay="200">
-        {{ b.subtitle }}
-      </h5>
+      {% with prop=b.property %}
+      <div class="banner-content text-end" data-aos="fade-up">
 
-      <!-- ✅ Brochure Logic -->
-      {% if prop.brochure %}
-        {% if request.session.name and request.session.email and request.session.phone %}
-          <!-- ✅ Show Download Button -->
-          <a href="{% url 'download_brochure' %}?id={{ prop.id }}" 
-             class="btn mt-3"
-             style="background-color: #00C853; color: #fff; border-radius: 2px solid #00C853;">
-            <i class="bi bi-download"></i> Download Brochure
-          </a>
+        <h1 class="heading">{{ b.title }}</h1>
+        <h5 class="sub-text" data-aos="fade-up" data-aos-delay="200">
+          {{ b.subtitle }}
+        </h5>
+
+        <!-- BROCHURE LOGIC (Fully Safe) -->
+        {% if prop and prop.brochure and prop.brochure.url %}
+
+          {% if request.session.name and request.session.email and request.session.phone %}
+
+            <!-- DOWNLOAD BUTTON -->
+            <a href="{% url 'download_brochure' %}?id={{ prop.id }}"
+               class="btn mt-3"
+               style="background-color:#00C853; color:#fff; border:2px solid #00C853; border-radius:5px;">
+              <i class="bi bi-download"></i> Download Brochure
+            </a>
+
+          {% else %}
+
+            <!-- REQUEST BROCHURE BUTTON -->
+            <a href="{% url 'download_brochure' %}?id={{ prop.id }}"
+              class="btn mt-2 request-brochure-btn"
+              style="background-color:#00C853; color:#fff;">
+              Download Brochure
+            </a>
+
+
+          {% endif %}
+
         {% endif %}
-      {% endif %}
+
+      </div>
+      {% endwith %}
 
     </div>
-    {% endwith %}
-
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
 
 
-  <!-- ✅ Your Old Static Content -->
+  <!-- STATIC CONTENT -->
   <div class="container">
     <div class="row justify-content-center align-items-center text-end">
       <div class="col-lg-9">
+
         <h1 class="heading" data-aos="fade-up">
           Nesto Property — Building Trust, One Home at a Time.
         </h1>
@@ -191,17 +210,18 @@
         <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
           Your Trusted Real Estate Partner
         </h5>
+
         <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
           <a href="{% url 'properties' %}" class="btn custom-blue-btn">
             View Properties
           </a>
         </div>
+
       </div>
     </div>
   </div>
 
 </div>
-
 
 
 <!-- Our Properties Section -->

@@ -1,5 +1,6 @@
 from django.shortcuts import render 
 from django.http import JsonResponse
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
@@ -15,51 +16,63 @@ from django.http import FileResponse, HttpResponseBadRequest
 from .utils import *
 from .models import Property ,FeatureListing, Review
 
-# 🏠 Home Page with Filter
+
 def home(request):
+
+    # -------------------------
+    # 🔹 BROCHURE DOWNLOAD LOGIC (inside home view)
+    # -------------------------
+    if request.GET.get("download_id"):
+        prop_id = request.GET.get("download_id")
+
+        prop = get_object_or_404(Property, id=prop_id)
+
+        if not prop.brochure:
+            raise Http404("Brochure not found")
+
+        try:
+            file_path = prop.brochure.path
+            response = FileResponse(open(file_path, "rb"), content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="{prop.title}_brochure.pdf"'
+            return response
+        except:
+            raise Http404("Could not open brochure file")
+
+    # -------------------------
+    # 🔹 NORMAL HOME PAGE LOGIC
+    # -------------------------
     properties = Property.objects.all()
     banners = BannerModel.objects.filter(is_active=True)
     featured = FeatureListing.objects.filter(is_active=True).select_related('property')
     active_slogan = Slogan.objects.filter(is_active=True).first()
     slogan = active_slogan.text if active_slogan else None
-
-    # FIX: show only active reviews
     reviews = Review.objects.filter(is_active=True)
-    print("this is my reviews" , reviews)
-    print("this is my slogen" , slogan)
 
     if request.method == "POST":
         name = request.POST.get("name")
         comment = request.POST.get("comment")
         image = request.FILES.get("image")
 
-        # FIX: default image
         if not image:
             image = "review_images/user.jpg"
 
-        # FIX: Save review
         Review.objects.create(
             name=name,
             comment=comment,
             image=image,
-            is_active=False  # stays same as your logic
+            is_active=False
         )
-
         return redirect("home")
-
-    print("this is my properties", properties)
 
     context = {
         'properties': properties,
         'banners': banners,
         'featured': featured,
-        'slogan': active_slogan,   # unchanged
-        'reviews': reviews         # only active reviews
+        'slogan': active_slogan,
+        'reviews': reviews
     }
-    print("data is coming", context)
 
     return render(request, "home.html", context)
-
 
 # 📞 Lead Form
 @csrf_exempt
@@ -265,36 +278,31 @@ def login(request):
 
 
 
-# optional if CSRF handled via JS token
 def download_brochure(request):
+  
     property_id = request.GET.get("id")
-    print("this is my",property_id)
-
-    
-
+    print("Received brochure download ID:", property_id)
 
     if not property_id:
         return HttpResponseBadRequest("Missing id")
 
     try:
-        
-        prop ,brochure= addLeads(request,property_id)
-
-
-        print("this is my data", prop)
-        
-
-        
+        prop = Property.objects.get(id=property_id)
     except Property.DoesNotExist:
-        return HttpResponseBadRequest("Invalid id")
+        return HttpResponseBadRequest("Invalid property id")
 
+    # brochure file should be prop.brochure (FileField)
+    brochure = prop.brochure  
 
-    
     if not brochure:
-        return HttpResponseBadRequest("No brochure found")
+        return HttpResponseBadRequest("No brochure found for this property")
 
+    # call your lead function (optional)
+    addLeads(request, property_id)
+
+    # correct file response
     return FileResponse(
         brochure.open("rb"),
         as_attachment=True,
-        filename=prop
+        filename=brochure.name.split("/")[-1]   # correct filename
     )
