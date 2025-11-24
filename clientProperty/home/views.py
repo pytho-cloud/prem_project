@@ -22,21 +22,42 @@ def home(request):
     featured = FeatureListing.objects.filter(is_active=True).select_related('property')
     active_slogan = Slogan.objects.filter(is_active=True).first()
     slogan = active_slogan.text if active_slogan else None
-    reviews = Review.objects.all()
+
+    # FIX: show only active reviews
+    reviews = Review.objects.filter(is_active=True)
     print("this is my reviews" , reviews)
     print("this is my slogen" , slogan)
 
+    if request.method == "POST":
+        name = request.POST.get("name")
+        comment = request.POST.get("comment")
+        image = request.FILES.get("image")
+
+        # FIX: default image
+        if not image:
+            image = "review_images/user.jpg"
+
+        # FIX: Save review
+        Review.objects.create(
+            name=name,
+            comment=comment,
+            image=image,
+            is_active=False  # stays same as your logic
+        )
+
+        return redirect("home")
 
     print("this is my properties", properties)
 
     context = {
         'properties': properties,
         'banners': banners,
-        'featured': featured ,
-        'slogan':active_slogan,
-        'reviews':reviews
+        'featured': featured,
+        'slogan': active_slogan,   # unchanged
+        'reviews': reviews         # only active reviews
     }
     print("data is coming", context)
+
     return render(request, "home.html", context)
 
 
