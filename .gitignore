@@ -1,4 +1,15 @@
-*__pycache__
+# Python
 *.pyc
 *.pyo
+__pycache__/
+
+# Virtual environment
 venv/
+
+# Django migrations (ignore compiled, keep .py scripts)
+*/migrations/*.pyc
+*/migrations/__pycache__/
+
+# IDE files
+.vscode/
+.idea/
