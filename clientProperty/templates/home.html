@@ -211,75 +211,7 @@
 
 
 
-<div class="container py-5">
-  <h2 class="text-center mb-5" style="font-weight: bold; color: #007bff;">
-    Featured Listings
-  </h2>
 
-  <!-- Auto slider -->
-  <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
-
-    <div class="carousel-inner">
-
-      {% for feature in featured %}
-      {% with item=feature.property %}
-
-      {% if forloop.first %}
-      <div class="carousel-item active">
-        <div class="row g-4">
-      {% elif forloop.counter0|divisibleby:3 %}
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row g-4">
-      {% endif %}
-
-      <!-- CARD -->
-      <div class="col-md-4 col-sm-6">
-        <div class="card shadow-3" style="border-radius:14px;">
-
-          <div class="bg-image hover-overlay ripple">
-            {% if item.image %}
-            <img src="{{ item.image.url }}" class="img-fluid"
-              style="height:230px; width:100%; object-fit:cover; 
-                     border-top-left-radius:14px; border-top-right-radius:14px;">
-            {% else %}
-            <img src="{% static 'images/default.jpg' %}" class="img-fluid"
-              style="height:230px; width:100%; object-fit:cover; 
-                     border-top-left-radius:14px; border-top-right-radius:14px;">
-            {% endif %}
-          </div>
-
-          <div class="card-body text-start">
-            <h5 class="fw-bold text-dark">{{ feature.featured_project_name }}</h5>
-            <p class="text-muted mb-1">{{ item.selling_status }}</p>
-
-            {% if feature.featured_location %}
-            <p class="mb-1">
-              <i class="fas fa-map-marker-alt text-danger me-1"></i> {{ feature.featured_location }}
-            </p>
-            {% endif %}
-
-            {% if feature.featured_price %}
-            <p class="fw-bold text-success">₹ {{ feature.featured_price }}</p>
-            {% endif %}
-          </div>
-
-        </div>
-      </div>
-
-      {% if forloop.last %}
-        </div>
-      </div>
-      {% endif %}
-
-      {% endwith %}
-      {% endfor %}
-
-    </div>
-
-  </div>
-</div>
 
 
 
