@@ -131,7 +131,7 @@ WSGI_APPLICATION = 'property.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nest_db',
+        'NAME': 'nesto_db',
         'USER': 'raj',
         'PASSWORD': 'March@05',
         'HOST': 'localhost',
