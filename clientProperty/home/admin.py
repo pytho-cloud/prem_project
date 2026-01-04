@@ -110,3 +110,18 @@ class SloganAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ("name", "is_active", "created_at")
+
+
+
+@admin.register(AboutModel)
+class AboutModelAdmin(admin.ModelAdmin):
+    list_display = ('heading', 'is_active')
+    list_filter = ('is_active',)
+    search_fields = ('heading',)
+
+
+@admin.register(PropertyCountModel)
+class AboutModelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'counts')
+    list_filter = ('is_active',)
+    search_fields = ('name',)

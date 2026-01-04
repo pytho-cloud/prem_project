@@ -25,8 +25,6 @@ def home(request):
 
     # FIX: show only active reviews
     reviews = Review.objects.filter(is_active=True)
-    print("this is my reviews" , reviews)
-    print("this is my slogen" , slogan)
 
     if request.method == "POST":
         name = request.POST.get("name")
@@ -47,17 +45,18 @@ def home(request):
 
         return redirect("home")
 
-    print("this is my properties", properties)
-
+    about_items = AboutModel.objects.filter(is_active=True)
+    counters = PropertyCountModel.objects.filter(is_active=True)
     context = {
         'properties': properties,
         'banners': banners,
         'featured': featured,
         'slogan': active_slogan,   # unchanged
-        'reviews': reviews         # only active reviews
+        'reviews': reviews ,
+        'about_items' :about_items   ,
+        'counters':counters  # only active reviews
     }
-    print("data is coming", context)
-
+    
     return render(request, "home.html", context)
 
 
@@ -83,14 +82,6 @@ def save_lead(request):
 
 
 
-
-# def contact(request):
-
-#     print("this is contact page with working condition ")
-
-#     return render(request,'contact.html')
-
-# ℹ️ About Page
 def about(request):
     return render(request, "about.html")
 
