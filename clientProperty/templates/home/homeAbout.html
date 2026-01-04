@@ -51,7 +51,11 @@
         </div>
         {% endfor %}
 
-        <a href="#contact" class="btn btn-primary px-4 mt-4" style="background-color: #00C853;">
+        <a href="#" 
+          class="btn px-4 mt-4 text-white"
+          style="background-color:#00C853;"
+          data-bs-toggle="modal"
+          data-bs-target="#appointmentModal">
           Get an appointment
         </a>
 
@@ -81,6 +85,58 @@
   </div>
 </section>
 
+<!-- ✅ Appointment Modal -->
+<div class="modal fade" id="appointmentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+
+      <div class="modal-header">
+        <h5 class="modal-title text-primary">Book an Appointment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text"
+                   name="name"
+                   class="form-control"
+                   placeholder="Enter your name"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input type="text"
+                   name="ph_number"
+                   class="form-control"
+                   maxlength="10"
+                   placeholder="Enter phone number"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Message (Optional)</label>
+            <textarea name="message"
+                      class="form-control"
+                      rows="3"
+                      placeholder="Any specific requirement?"></textarea>
+          </div>
+
+          <button type="submit"
+                  class="btn w-100 text-white"
+                  style="background-color:#00C853;">
+            Submit Appointment
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
 
