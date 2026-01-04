@@ -27,7 +27,10 @@ class Property(models.Model):
         choices=[
             ('Ready to Move', 'Ready to Move'),
             ('Under Construction', 'Under Construction'),
-            ('Sold Out', 'Sold Out')
+            ('Sold Out', 'Sold Out'),
+            ('Near Possession', 'Near Possession'),
+
+            
         ],
         default='Ready to Move'
     )
@@ -162,3 +165,23 @@ class Review(models.Model):
     
     def __str__(self):
         return f"Review by {self.name}"
+    
+
+
+
+class AboutModel(models.Model):
+    # image = models.ImageField(upload_to='about-images/', blank=True, null=True)
+    heading = models.CharField(max_length=244)
+    icon = models.CharField(max_length=100)  
+    content = models.TextField()
+    is_active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.heading
+    
+
+
+class PropertyCountModel(models.Model):
+    name = models.CharField(max_length=255)
+    counts = models.IntegerField()
+    is_active = models.BooleanField(default=False)

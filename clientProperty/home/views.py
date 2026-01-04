@@ -14,17 +14,16 @@ from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.http import FileResponse, HttpResponseBadRequest
 from .utils import *
-from .models import Property ,FeatureListing, Review
+from .models import Property ,FeatureListing, Review, Appoinment
 
 
 def home(request):
-
+  
     # -------------------------
-    # 🔹 BROCHURE DOWNLOAD LOGIC (inside home view)
+    # 🔹 BROCHURE DOWNLOAD LOGIC
     # -------------------------
     if request.GET.get("download_id"):
         prop_id = request.GET.get("download_id")
-
         prop = get_object_or_404(Property, id=prop_id)
 
         if not prop.brochure:
@@ -41,28 +40,44 @@ def home(request):
     # -------------------------
     # 🔹 NORMAL HOME PAGE LOGIC
     # -------------------------
-    properties = Property.objects.all()
+    properties = Property.objects.all()[:6]
     banners = BannerModel.objects.filter(is_active=True)
     featured = FeatureListing.objects.filter(is_active=True).select_related('property')
     active_slogan = Slogan.objects.filter(is_active=True).first()
-    slogan = active_slogan.text if active_slogan else None
     reviews = Review.objects.filter(is_active=True)
 
     if request.method == "POST":
-        name = request.POST.get("name")
-        comment = request.POST.get("comment")
-        image = request.FILES.get("image")
 
-        if not image:
-            image = "review_images/user.jpg"
+        # ---------- Review Form ----------
+        if "comment" in request.POST:
+            name = request.POST.get("name")
+            comment = request.POST.get("comment")
+            image = request.FILES.get("image") or "review_images/user.jpg"
 
-        Review.objects.create(
-            name=name,
-            comment=comment,
-            image=image,
-            is_active=False
-        )
-        return redirect("home")
+            # Only create Review if comment is provided
+            if comment:
+                Review.objects.create(
+                    name=name,
+                    comment=comment,
+                    image=image,
+                    is_active=False
+                )
+            return redirect("home")
+
+        # ---------- Appointment Form ----------
+        elif "ph_number" in request.POST:
+            name = request.POST.get("name")
+            ph_number = request.POST.get("ph_number")
+            message = request.POST.get("message")
+
+            # Only create Appointment if name and phone provided
+            if name and ph_number:
+                Appoinment.objects.create(
+                    name=name,
+                    ph_number=ph_number,
+                    message=message
+                )
+            return redirect("home")
 
     context = {
         'properties': properties,
@@ -306,3 +321,21 @@ def download_brochure(request):
         as_attachment=True,
         filename=brochure.name.split("/")[-1]   # correct filename
     )
+    
+    
+
+# def appointment_view(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         ph_number = request.POST.get("ph_number")
+#         message = request.POST.get("message")
+
+#         Appoinment.objects.create(
+#             name=name,
+#             ph_number=ph_number,
+#             message=message
+#         )
+
+#         return redirect("appoinment")  # reload page after submit
+
+#     return render(request, "home.html")
