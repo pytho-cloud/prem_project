@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-e9gu#e3ao1+w08c%6c91p73=#&ycpxpp&$v3cetb1+-5ebpkt!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*",'nestoproperty.in','www.nestoproperty.in']
 
 
 # Application definition
