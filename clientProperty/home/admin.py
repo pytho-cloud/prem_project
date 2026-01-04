@@ -125,3 +125,11 @@ class AboutModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'counts')
     list_filter = ('is_active',)
     search_fields = ('name',)
+
+
+
+@admin.register(Appoinment)
+class AppoinmentModelAdmin(admin.ModelAdmin):
+    list_display = ('name', 'ph_number','message')
+    list_filter = ('name',)
+    search_fields = ('name',)
