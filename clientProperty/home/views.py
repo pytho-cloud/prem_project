@@ -77,14 +77,19 @@ def home(request):
                     ph_number=ph_number,
                     message=message
                 )
-            return redirect("home")
 
+        
+            return redirect("home")
+    about_items = AboutModel.objects.filter(is_active=True)
+    counters = PropertyCountModel.objects.filter(is_active=True)
     context = {
         'properties': properties,
         'banners': banners,
         'featured': featured,
-        'slogan': active_slogan,
-        'reviews': reviews
+        'slogan': active_slogan ,
+        'about_items' :about_items   ,
+        'counters':counters ,
+        'reviews':reviews
     }
 
     return render(request, "home.html", context)

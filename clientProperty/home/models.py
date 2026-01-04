@@ -185,3 +185,17 @@ class PropertyCountModel(models.Model):
     name = models.CharField(max_length=255)
     counts = models.IntegerField()
     is_active = models.BooleanField(default=False)
+
+
+
+
+
+
+
+class Appoinment(models.Model):
+    name = models.CharField(max_length=100)
+    ph_number = models.CharField(max_length=10)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
