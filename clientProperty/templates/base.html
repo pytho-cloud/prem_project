@@ -27,6 +27,15 @@
     <link rel="stylesheet" href="{% static 'css/aos.css' %}" />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
+
+    <script>
+  (function () {
+    if (localStorage.getItem("aboutZoomPlayed")) {
+      document.documentElement.classList.add("no-about-zoom");
+    }
+  })();
+</script>
+
     
 </head>
 
@@ -363,6 +372,10 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.style.display = "none";
         }
     });
+</script>
+
+<script>
+  localStorage.setItem("aboutZoomPlayed", "1");
 </script>
 
 </body>
