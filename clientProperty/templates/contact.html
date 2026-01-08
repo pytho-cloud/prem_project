@@ -1,26 +1,17 @@
 {% load static %}
 
+<!-- ================= REVIEWS SECTION ================= -->
 
+<div class="container py-5 mt-5">
 
-{% comment %} Why Choose Nesto Property Section {% endcomment %}
-
-
-
-
-
-
-
-
-<div class="container py-5 mt-5" >
-
-    <h2 class="text-center mb-4 fw-bold" style="color:#007bff; data-aos="fade-in"">
+    <h2 class="text-center mb-4 fw-bold text-primary" data-aos="zoom-in">
         What Our Clients Say
     </h2>
 
-    <div class="row g-4 justify-content-center" data-aos="fade-in">
+    <div class="row g-4 justify-content-center">
 
         {% for review in reviews %}
-        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-12" data-aos="fade-up">
             <div class="card text-center shadow-sm border-0" style="border-radius: 14px;">
 
                 <div class="mt-3">
@@ -55,7 +46,7 @@
 
     </div>
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-4" data-aos="zoom-in">
         <button class="btn btn-primary px-4 py-2 fw-bold"
                 data-bs-toggle="modal" data-bs-target="#reviewModal">
             Share Your Review
@@ -64,162 +55,112 @@
 
 </div>
 
+<!-- ================= CONTACT SECTION ================= -->
 
+<section class="py-5 mt-5" id="contact">
 
+<div class="container">
 
-<section class="py-5 mt-5" data-aos="fade-up" id ='contact'>
-    <div class="container">
-        
-        <!-- Header -->
-        <div class="row mb-5 text-center">
-            <div class="col">
-                <h2 class="fw-bold display-6 text-primary">Contact Us</h2>
-                <p class="text-muted lead">
-                    Have questions? Our team is here to help you with anything you need.
-                </p>
-            </div>
-        </div>
-
-        <div class="row g-4 align-items-stretch">
-
-            <!-- Contact Form -->
-            <div class="col-md-6" data-aos="fade-right" >
-                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card" >
-                    <div class="card-body p-5" style='  background-color: #007bff;'>
-
-                        <h4 class="fw-bold mb-4 text-white">Send a message</h4>
-
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                        {% endfor %}
-                        {% endif %}
-
-                        <form method="post" action="{% url 'contact' %}">
-                            {% csrf_token %}
-
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" style='  background-color: #ffff;color:#000;' id="name" placeholder="Enter name" name="name" required>
-                                <label for="name"style='  color:#000;' >Full Name</label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                <input type="number" class="form-control" style='  background-color: #ffff; color:#000;' id="phone" placeholder="Phone" name="phone" required>
-                                <label for="phone" style='  color:#000;' >Phone Number</label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" style='  background-color: #ffff; color:#000;' id="email" placeholder="Email" name="email" required>
-                                <label for="email" style='  color:#000;' >Email Address</label>
-                            </div>
-
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" style='  background-color: #ffff; color:#000;'  id="subject" placeholder="Subject" name="subject" required>
-                                <label for="subject" style='  color:#000;' >Subject</label>
-                            </div>
-
-                            <div class="form-floating mb-4"  >
-                                <textarea class="form-control" style='  background-color: #ffff; color:#000;' placeholder="Your message" name="message" id="message" style="height: 120px" required></textarea>
-                                <label for="message" style='  color:#000;' >Message</label>
-                            </div>
-
-                            <button type="submit" class="btn  background-color: #ffff; w-100 py-3 text-uppercase fw-bold" style="background-color: #fff;">
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Info -->
-            <div class="col-md-6" data-aos="fade-left" style='  background-color: #007bff;'>
-                <div class="card border-0 shadow-lg rounded-4 h-100 contact-card" style='  background-color: #007bff;'>
-                    <div class="card-body p-5 text-white" style='  background-color: #007bff;'>
-                        <h4 class="fw-bold mb-4">Get in touch</h4>
-
-                        <p class="mb-3"><i class="bi bi-geo-alt-fill me-2"></i> Mumbai, Maharashtra-40007</p>
-                        <p class="mb-3"><i class="bi bi-envelope-fill me-2"></i> sales@nestoproperty.in</p>
-                        <p class="mb-3"><i class="bi bi-telephone-fill me-2"></i> +91 9706171000</p>
-                        <p class="mb-4"><i class="bi bi-clock-fill me-2"></i> Appointment Only</p>
-
-                        <h6 class="fw-semibold mb-3">Connect With Us</h6>
-                        <div class="d-flex gap-3">
-
-                            <a href="https://www.linkedin.com/company/nestoproperty/" class="social-icon"><i class="bi bi-linkedin"></i></a>
-                            <a href="https://www.instagram.com/nesto_property?igsh=aXp6ZmhsMWJtcmZ2" class="social-icon"><i class="bi bi-instagram"></i></a>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+    <div class="row mb-5 text-center">
+        <div class="col" data-aos="zoom-in">
+            <h2 class="fw-bold display-6 text-primary">Contact Us</h2>
+            <p class="text-muted lead">
+                Have questions? Our team is here to help you with anything you need.
+            </p>
         </div>
     </div>
+
+    <div class="row g-4 align-items-stretch">
+
+        <!-- Contact Form -->
+        <div class="col-md-6" data-aos="fade-right">
+            <div class="card border-0 shadow-lg rounded-4 h-100 contact-card">
+                <div class="card-body p-5" style="background-color:#007bff;">
+
+                    <h4 class="fw-bold mb-4 text-white">Send a message</h4>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <form method="post" action="{% url 'contact' %}">
+                        {% csrf_token %}
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                            <label for="name">Full Name</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="phone" name="phone" placeholder="Phone" required>
+                            <label for="phone">Phone Number</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <label for="email">Email Address</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                            <label for="subject">Subject</label>
+                        </div>
+
+                        <div class="form-floating mb-4">
+                            <textarea class="form-control" id="message" name="message" placeholder="Message" style="height:120px" required></textarea>
+                            <label for="message">Message</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-light w-100 py-3 text-uppercase fw-bold">
+                            Send Message
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-md-6" data-aos="fade-left">
+            <div class="card border-0 shadow-lg rounded-4 h-100 contact-card" style="background-color:#007bff;">
+                <div class="card-body p-5 text-white">
+
+                    <h4 class="fw-bold mb-4">Get in touch</h4>
+
+                    <p><i class="bi bi-geo-alt-fill me-2"></i> Mumbai, Maharashtra-40007</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i> sales@nestoproperty.in</p>
+                    <p><i class="bi bi-telephone-fill me-2"></i> +91 9706171000</p>
+                    <p><i class="bi bi-clock-fill me-2"></i> Appointment Only</p>
+
+                    <h6 class="fw-semibold mt-4 mb-3">Connect With Us</h6>
+                    <div class="d-flex gap-3">
+                        <a href="https://www.linkedin.com/company/nestoproperty/" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.instagram.com/nesto_property" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
 </section>
 
-<!-- ✅ Custom Styling -->
-<style>
-    .contact-card {
-        {% comment %} background: linear-gradient(145deg, #004d4d, #007373); {% endcomment %}
-        color: #fff;
-        border-radius: 15px;
-    }
+<!-- ================= AOS INIT ================= -->
 
-    .form-floating .form-control {
-        border-radius: 8px;
-        {% comment %} background-color: #004040; {% endcomment %}
-        color: #fff;
-        border: none;
-    }
+<!-- <script>
+AOS.init({
+    once: true,
+    duration: 1000,
+    easing: 'ease-in-out'
+});
+</script> -->
 
-    .form-floating label {
-        color: #d9f3f3;
-    }
-
-    .form-control:focus {
-        box-shadow: none;
-        {% comment %} background-color: #003636; {% endcomment %}
-        color: #fff;
-    }
-
-    .btn-gradient {
-        background: linear-gradient(90deg, #00d4ff, #0073ff);
-        border: none;
-        color: #fff;
-        transition: 0.4s ease;
-        border-radius: 8px;
-    }
-
-    .btn-gradient:hover {
-        background: linear-gradient(90deg, #0073ff, #00d4ff);
-        transform: scale(1.03);
-    }
-
-    .social-icon {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.15);
-        color: #fff;
-        text-decoration: none;
-        transition: .3s ease;
-    }
-
-    .social-icon:hover {
-        background: #fff;
-        {% comment %} color: #007373; {% endcomment %}
-        transform: scale(1.15);
-    }
-
-    
-</style>
-
-<!-- Bootstrap Icons -->
+<!-- ================= ICONS ================= -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
