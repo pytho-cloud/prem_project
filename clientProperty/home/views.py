@@ -17,35 +17,46 @@ from .utils import *
 from .models import Property ,FeatureListing, Review, Appoinment
 
 
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import FileResponse, Http404
+from .models import (
+    Property,
+    BannerModel,
+    FeatureListing,
+    Slogan,
+    Review,
+    AboutModel,
+    PropertyCountModel,
+    Appoinment,
+)
+
 def home(request):
-  
-    # -------------------------
-    # 🔹 BROCHURE DOWNLOAD LOGIC
-    # -------------------------
-    if request.GET.get("download_id"):
-        prop_id = request.GET.get("download_id")
-        prop = get_object_or_404(Property, id=prop_id)
+
+    # -------------------------------------------------
+    # 🔹 BROCHURE DOWNLOAD (GET request)
+    # -------------------------------------------------
+    download_id = request.GET.get("download_id")
+    if download_id:
+        prop = get_object_or_404(Property, id=download_id)
 
         if not prop.brochure:
             raise Http404("Brochure not found")
 
         try:
-            file_path = prop.brochure.path
-            response = FileResponse(open(file_path, "rb"), content_type='application/pdf')
-            response['Content-Disposition'] = f'attachment; filename="{prop.title}_brochure.pdf"'
+            response = FileResponse(
+                open(prop.brochure.path, "rb"),
+                content_type="application/pdf"
+            )
+            response["Content-Disposition"] = (
+                f'attachment; filename="{prop.name}_brochure.pdf"'
+            )
             return response
         except:
             raise Http404("Could not open brochure file")
 
-    # -------------------------
-    # 🔹 NORMAL HOME PAGE LOGIC
-    # -------------------------
-    properties = Property.objects.all()[:6]
-    banners = BannerModel.objects.filter(is_active=True)
-    featured = FeatureListing.objects.filter(is_active=True).select_related('property')
-    active_slogan = Slogan.objects.filter(is_active=True).first()
-    reviews = Review.objects.filter(is_active=True)
-
+    # -------------------------------------------------
+    # 🔹 POST REQUEST HANDLING
+    # -------------------------------------------------
     if request.method == "POST":
 
         # ---------- Review Form ----------
@@ -54,7 +65,6 @@ def home(request):
             comment = request.POST.get("comment")
             image = request.FILES.get("image") or "review_images/user.jpg"
 
-            # Only create Review if comment is provided
             if comment:
                 Review.objects.create(
                     name=name,
@@ -64,35 +74,50 @@ def home(request):
                 )
             return redirect("home")
 
-        # ---------- Appointment Form ----------
-        elif "ph_number" in request.POST:
+        # ---------- General Appointment ----------
+        elif "ph_number" in request.POST and "property_name" not in request.POST:
             name = request.POST.get("name")
             ph_number = request.POST.get("ph_number")
             message = request.POST.get("message")
 
-            # Only create Appointment if name and phone provided
             if name and ph_number:
                 Appoinment.objects.create(
                     name=name,
                     ph_number=ph_number,
                     message=message
                 )
-
-        
             return redirect("home")
-    about_items = AboutModel.objects.filter(is_active=True)
-    counters = PropertyCountModel.objects.filter(is_active=True)
+
+        # ---------- Property Enquiry ----------
+        elif "property_name" in request.POST:
+            name = request.POST.get("name")
+            ph_number = request.POST.get("ph_number")
+            message = request.POST.get("message")
+            property_name = request.POST.get("property_name")
+
+            if name and ph_number:
+                Appoinment.objects.create(
+                    name=name,
+                    ph_number=ph_number,
+                    message=f"Property Enquiry: {property_name}\n{message or ''}"
+                )
+            return redirect("home")
+
+    # -------------------------------------------------
+    # 🔹 NORMAL PAGE DATA
+    # -------------------------------------------------
     context = {
-        'properties': properties,
-        'banners': banners,
-        'featured': featured,
-        'slogan': active_slogan ,
-        'about_items' :about_items   ,
-        'counters':counters ,
-        'reviews':reviews
+        "properties": Property.objects.all()[:6],
+        "banners": BannerModel.objects.filter(is_active=True),
+        "featured": FeatureListing.objects.filter(is_active=True).select_related("property"),
+        "slogan": Slogan.objects.filter(is_active=True).first(),
+        "about_items": AboutModel.objects.filter(is_active=True),
+        "counters": PropertyCountModel.objects.filter(is_active=True),
+        "reviews": Review.objects.filter(is_active=True),
     }
 
     return render(request, "home.html", context)
+
 
 # 📞 Lead Form
 @csrf_exempt
