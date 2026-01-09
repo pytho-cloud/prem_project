@@ -104,7 +104,7 @@ class BannerAdmin(admin.ModelAdmin):
 
 @admin.register(Slogan)
 class SloganAdmin(admin.ModelAdmin):
-    list_display = ("text", "created_at","is_active")
+    list_display = ("text", "created_at","is_active","is_banner_slogen","is_banner_sub_slogen")
     
     
 @admin.register(Review)

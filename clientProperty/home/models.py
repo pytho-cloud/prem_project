@@ -151,6 +151,9 @@ class Slogan(models.Model):
     text = models.TextField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False)
+    is_banner_slogen = models.BooleanField(default=False)
+    is_banner_sub_slogen = models.BooleanField(default=False)
+
     
     def __str__(self):
         return self.text

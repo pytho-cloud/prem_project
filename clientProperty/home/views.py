@@ -114,6 +114,8 @@ def home(request):
         "about_items": AboutModel.objects.filter(is_active=True),
         "counters": PropertyCountModel.objects.filter(is_active=True),
         "reviews": Review.objects.filter(is_active=True),
+        "is_banner_slogen":Slogan.objects.filter(is_banner_slogen =True).first() ,
+        "is_banner_sub_slogen" :Slogan.objects.filter(is_banner_sub_slogen =True).first()
     }
 
     return render(request, "home.html", context)

@@ -202,14 +202,23 @@
   <div class="container">
     <div class="row justify-content-center align-items-center text-end">
       <div class="col-lg-9">
-
-        <h1 class="heading" data-aos="fade-up">
-          Nesto Property — Building Trust, One Home at a Time.
-        </h1>
-
-        <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
+          {% comment %} Nesto Property — Building Trust, One Home at a Time. {% endcomment %}
+          {% if is_banner_slogen %}
+            <h1 class="heading" data-aos="fade-up">
+              {{ is_banner_slogen }}
+            </h1>
+          {% endif %}
+       
+        {% comment %} <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
           Your Trusted Real Estate Partner
-        </h5>
+        </h5> {% endcomment %}
+          {% if is_banner_sub_slogen %}
+
+              <h5 class="mt-3 text-white" data-aos="fade-up" data-aos-delay="200">
+                 {{ is_banner_sub_slogen}}
+                </h5>
+
+          {% endif %}
 
         <div class="mt-4" data-aos="fade-up" data-aos-delay="300">
           <a href="{% url 'properties' %}" class="btn custom-blue-btn">
