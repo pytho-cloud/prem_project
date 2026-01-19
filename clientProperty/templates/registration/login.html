@@ -18,7 +18,7 @@
 
   <div class="container" data-aos="zoom-in">
     <!-- ✅ Send form to submit_contact instead of login -->
-    <form method="POST" action="{% url 'login' %}" class="login-form">
+    <form method="POST" action="{% url 'submit_contact' %}" class="login-form">
       {% csrf_token %}
       <h2>Submit Your Details 🏢</h2>
 
