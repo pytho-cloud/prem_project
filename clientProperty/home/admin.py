@@ -1,7 +1,7 @@
 from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from .models import *
-
+from django.utils.html import format_html
 # -------------------------
 # PROPERTY IMAGES INLINE
 # -------------------------
@@ -133,3 +133,20 @@ class AppoinmentModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'ph_number','message')
     list_filter = ('name',)
     search_fields = ('name',)
+    
+    
+@admin.register(WhyChooseUs)
+class WhyChooseUsAdmin(admin.ModelAdmin):
+    list_display = ('icon_preview', 'title', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
+    ordering = ('order',)
+    search_fields = ('title',)
+
+    def icon_preview(self, obj):
+        if obj.icon_class:
+            return format_html(
+                '<i class="{}" style="font-size:20px;color:#007bff;"></i>',
+                obj.icon_class
+            )
+        return "-"
+    icon_preview.short_description = "Icon"

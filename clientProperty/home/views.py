@@ -28,6 +28,7 @@ from .models import (
     AboutModel,
     PropertyCountModel,
     Appoinment,
+    WhyChooseUs,
 )
 
 def home(request):
@@ -115,7 +116,9 @@ def home(request):
         "counters": PropertyCountModel.objects.filter(is_active=True),
         "reviews": Review.objects.filter(is_active=True),
         "is_banner_slogen":Slogan.objects.filter(is_banner_slogen =True).first() ,
-        "is_banner_sub_slogen" :Slogan.objects.filter(is_banner_sub_slogen =True).first()
+        "is_banner_sub_slogen" :Slogan.objects.filter(is_banner_sub_slogen =True).first(),
+        "why_choose_us": WhyChooseUs.objects.filter(is_active=True).order_by('order'),
+        "extra_fields": ExtraField.objects.all(),
     }
 
     return render(request, "home.html", context)
@@ -371,3 +374,5 @@ def download_brochure(request):
 #         return redirect("appoinment")  # reload page after submit
 
 #     return render(request, "home.html")
+
+

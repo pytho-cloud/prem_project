@@ -202,3 +202,33 @@ class Appoinment(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
+    
+    
+class WhyChooseUs(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    icon_class = models.CharField(
+        max_length=100,
+        help_text="FontAwesome icon class e.g. fas fa-location-dot"
+    )
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Why Choose Us"
+        verbose_name_plural = "Why Choose Us"
+
+    def __str__(self):
+        return self.title
+    
+    
+class ExtraField(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    image = models.ImageField(upload_to='extra_fields/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.title
